@@ -1,0 +1,1257 @@
+# $Id$
+
+#The Triton Center
+#Copyright (C)2003-2007 Ryan Thoryk
+
+#This program is free software; you can redistribute it and/or
+#modify it under the terms of the GNU General Public License
+#as published by the Free Software Foundation; either version 2
+#of the License, or (at your option) any later version.
+
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+
+#You should have received a copy of the GNU General Public License
+#along with this program; if not, write to the Free Software
+#Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+<Globals>
+    Name = Triton Center
+    Designer = Ryan Thoryk
+    Location = 111 N. Dearborn, Chicago, IL
+    Description = A fictitious Chicago-based 142-story skyscraper located on the northeast corner of Dearborn & Washington.
+    Version = 3
+    CameraAltitude = 5
+    HorizScale = 1
+    CameraFloor = 0
+    CameraPosition = 0, -41.6
+    CameraDirection = 0, 10, 28.8
+    CameraRotation = 0, 0, 0
+<EndGlobals>
+
+<Textures>
+    Load data/brick1.jpg, Brick
+    Load data/lobbyfront.jpg, LobbyFront
+    Load data/windows11h.jpg, MainWindows
+    Load data/granite.jpg, Granite
+    Load data/symb5.jpg, Marble3
+    Load data/marb047.jpg, Marble4
+    Load data/elev1.jpg, Elev1
+    Load data/textur15.jpg, Wood1
+    Load data/text16.jpg, Wood2
+    Load data/marbl3.jpg, Wall1
+    Load data/marb123.jpg, Wall2
+    Load data/cutston.jpg, Ceiling1
+    Load data/intext.jpg, InterExt
+    Load data/text12.jpg, Wall3
+    Load data/text16.jpg, ElevDoors
+    Load data/marb148.jpg, ElevExtPanels
+    Load data/mason01.jpg, Concrete
+    Load data/text13.jpg, Stairs
+    Load data/wooddoor3.jpg, Door1
+    Load data/wooddoor1.jpg, Door2
+    Load data/servicedoor2.jpg, StairsDoor
+    Load data/miscdoor8.jpg, StairsDoor2
+    Load data/button1.jpg, CallButtonsTex
+    Load data/sidewalk1r.jpg, Road1
+    Load data/walkway.jpg, Walkway
+    Load data/sidewalkcorner1.jpg, Road2
+    Load data/sidewalkcorner2.jpg, Road3
+    Load data/sidewalkcorner3.jpg, Road4
+    Load data/roadfull.jpg, Road5
+    Load data/windows08.jpg, Windows8
+    Load data/windows11.jpg, Windows11
+    Load data/downtown.jpg, Downtown
+    Load data/suburbs.jpg, Suburbs
+    Load data/vents1b.jpg, VentsInt
+    Load data/vents1.jpg, VentsExt
+    Load data/top.jpg, SkyTop
+    Load data/bottom.jpg, SkyBottom
+    Load data/left.jpg, SkyLeft
+    Load data/right.jpg, SkyRight
+    Load data/front.jpg, SkyFront
+    Load data/back.jpg, SkyBack
+    Load data/plaque.jpg, Plaque
+    Load data/floorsign.jpg, FloorSign
+    Load data/floorsignballroom.jpg, FloorSignBallroom
+    Load data/floorsignbalcony.jpg, FloorSignBalcony
+    Load data/floorsignhotel.jpg, FloorSignHotel
+    Load data/floorsignlobby.jpg, FloorSignLobby
+    Load data/floorsignmaint.jpg, FloorSignMaint
+    Load data/floorsignmez.jpg, FloorSignMez
+    Load data/floorsignmechanical.jpg, FloorSignMechanical
+    Load data/floorsignobservatory.jpg, FloorSignObservatory
+    Load data/floorsignoffices.jpg, FloorSignOffices
+    Load data/floorsignpool.jpg, FloorSignPool
+    Load data/floorsignresidential.jpg, FloorSignResidential
+    Load data/floorsignroof.jpg, FloorSignRoof
+    Load data/floorsignskylobby.jpg, FloorSignSkylobby
+
+    #floor indicator/button pictures
+    Load data/floorindicators/L.jpg, ButtonL
+    Load data/floorindicators/M.jpg, ButtonM
+    Load data/floorindicators/R.jpg, ButtonR
+    Load data/floorindicators/open.jpg, ButtonOpen
+    Load data/floorindicators/close.jpg, ButtonClose
+    Load data/floorindicators/stop.jpg, ButtonStop
+    Load data/floorindicators/alarm.jpg, ButtonAlarm
+    Load data/floorindicators/cancel.jpg, ButtonCancel
+    LoadRange 2, 138, data/floorindicators/%number%.jpg, Button%number%
+<EndTextures>
+
+# Basements
+<Floors -1 to -10>
+    Set 2 = %floor% * -1
+    ID = LL%2%
+    Name = Lower Level %2%
+    Type = Basement
+    Height = 9.5
+    InterfloorHeight = 2.24
+    if(%floor% = -1) Altitude = -2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -75, 70, 75, -70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Brick, 0.5, -75, 70, 75, -70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -75, 70, 75, -70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -75, 70, 75, -70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall IFront, Brick, 0.5, -75, -70, 75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -75, 70, -75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IRight, Brick, 0.5, 75, -70, 75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 75, 70, -75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+
+    #Level Walls
+    WallOrientation = left
+    AddWall Front, Brick, 0.5, -75, -70, 75, -70, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Left, Brick, 0.5, -75, 70, -75, -70, %height%, %height%, 0, 0, 0, 0, False
+    WallOrientation = right
+    AddWall Right, Brick, 0.5, 75, -70, 75, 70, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Back, Brick, 0.5, 75, 70, -75, 70, %height%, %height%, 0, 0, 0, 0, False
+<EndFloors>
+
+#Lobby
+<Floor 0>
+    ID = L
+    Name = Lobby
+    Type = Lobby
+    Description = Lobby
+    Height = 10
+    InterfloorHeight = 2.24
+    Altitude = -2.24
+    Group = 1 #enable mezzanine also, since both are merged
+
+    Set 1 = %fullheight%
+    
+    #Floor
+    FloorOrientation = top
+    #AddFloor Floor, Marble4, 0.5, -75, -70, 75, 70, 0, 0, 0, 0, False
+    AddFloor Floor, Marble4, 0, -418.2, -418.2, 418.2, 418.2, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble4, 0.5, -75, -70, 75, 70, %height% * 3, %height% * 3, 0, 0, False
+
+    #Lobby Front
+    WallOrientation = left
+    AddWall Front, LobbyFront, 0.5, -75 + 0.1, -70 + 0.1, 75 - 0.1, -70 + 0.1, %1% * 3, %1% * 3, 0, 0, 0.3, 1, True
+    AddWall Left, LobbyFront, 0.5, -75 + 0.1, 70 - 0.1, -75 + 0.1, -70 + 0.1, %1% * 3, %1% * 3, 0, 0, 0.3, 1, True
+    WallOrientation = right
+    AddWall Right, LobbyFront, 0.5, 75 - 0.1, -70 + 0.1, 75 - 0.1, 70 - 0.1, %1% * 3, %1% * 3, 0, 0, 0.3, 1, True
+    AddWall Back, LobbyFront, 0.5, 75 - 0.1, 70 - 0.1, -75 + 0.1, 70 - 0.1, %1% * 3, %1% * 3, 0, 0, 0.3, 1, True
+
+    #sample walls
+    WallOrientation = right
+    AddWall LeftTest, Wall1, 0.3, 2, 8.7, 2, 19.3, %height%, %height%, 0, 0, 0, 0, False
+    AddWall FrontTest, Wall1, 0.3, 1.7, 9, 11.3, 9, %height%, %height%, 0, 0, 0, 0, False
+    WallOrientation = left
+    AddWall RightTest, Wall1, 0.3, 11, 8.7, 11, 19.3, %height%, %height%, 0, 0, 0, 0, False
+    AddWall BackTest, Wall1, 0.3, 1.7, 19, 11.3, 19, %height%, %height%, 0, 0, 0, 0, False
+<EndFloor>
+
+#mezzanine
+<Floor 1>
+    ID = M
+    Name = Mezzanine
+    Type = Mezzanine
+    Description = Mezzanine level above lobby
+    Height = 24.48
+    InterfloorHeight = 0
+    Group = 0 #enable lobby also, since both are merged
+
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -42.5, -25.8, 42.5, 25.8, 0, 0, 0, 0, False
+    FloorOrientation = bottom
+    AddFloor Ceiling, Ceiling1, 0.5, -42.5, -25.8, 42.5, 25.8, -0.05, -0.05, 0, 0, False
+<EndFloor>
+
+#zone 1 skeleton
+<Floors 2 to 37>
+    Height = 10
+    InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -75, -70, 75, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -75, -70, 75, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -75, -70, 75, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -75, -70, 75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -75, 70, -75, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -75, 70, -75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 75, -70, 75, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 75, -70, 75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 75, 70, -75, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 75, 70, -75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -75, -70, 75, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -75, -70, 75, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall IFront, Brick, 0.5, -75, -70, 75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -75, 70, -75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IRight, Brick, 0.5, 75, -70, 75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 75, 70, -75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+# conference levels
+<Floors 2 to 5>
+    ID = %floor%
+    Name = Conference Level
+    Type = Conference
+    Description = Conference level %floor%
+
+<EndFloors>
+
+# rooms
+<Floors 6 to 37>
+    ID = %floor%
+    Name = Offices
+    Type = Office
+    Description = Zone 1 office level %floor%
+
+<EndFloors>
+
+#zone 1 mechanical
+<Floors 38 to 39>
+    ID = %floor%
+    Name = Mechanical
+    Type = Service
+    Description = Zone 1 mechanical
+    Height = 15
+    InterfloorHeight = 1
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -75, -70, 75, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Brick, 0.5, -75, -70, 75, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #Internal vents
+    WallOrientation = left
+    AddWall Vents Front, VentsInt, 0.5, -75, -70, 75, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Left, VentsInt, 0.5, -75, 70, -75, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    WallOrientation = right
+    AddWall Vents Right, VentsInt, 0.5, 75, -70, 75, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Back, VentsInt, 0.5, 75, 70, -75, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -75, -70, 75, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -75, -70, 75, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall IFront, Brick, 0.5, -75, -70, 75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall ILeft, Brick, 0.5, -75, 70, -75, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IRight, Brick, 0.5, 75, -70, 75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IBack, Brick, 0.5, 75, 70, -75, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+#external vents
+<Floor 38>
+    WallOrientation = left
+    AddWall ExtVents Front, VentsExt, 0.5, -75, -70, 75, -70, %fullheight% * 2, %fullheight% * 2, 0, 0, 0.5, 0, True
+    AddWall ExtVents Left, VentsExt, 0.5, -75, 70, -75, -70, %fullheight% * 2, %fullheight% * 2, 0, 0, 0.5, 0, True
+    WallOrientation = right
+    AddWall ExtVents Right, VentsExt, 0.5, 75, -70, 75, 70, %fullheight% * 2, %fullheight% * 2, 0, 0, 0.5, 0, True
+    AddWall ExtVents Back, VentsExt, 0.5, 75, 70, -75, 70, %fullheight% * 2, %fullheight% * 2, 0, 0, 0.5, 0, True
+<EndFloor>
+
+#zone 1 setbacks
+<Floor 39>
+    FloorOrientation = top
+    AddFloor Left Setback, Brick, 0.5, -75, -70, -63, 70, %fullheight%, %fullheight%, 0, 0, True
+    AddFloor Right Setback, Brick, 0.5, 63, -70, 75, 70, %fullheight%, %fullheight%, 0, 0, True
+<EndFloor>
+
+#zone 2 skeleton
+<Floors 40 to 78>
+    Height = 10
+    InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -63, -70, 63, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -63, -70, 63, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -63, -70, 63, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -63, -70, 63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -63, 70, -63, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -63, 70, -63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 63, -70, 63, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 63, -70, 63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 63, 70, -63, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 63, 70, -63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -63, -70, 63, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -63, -70, 63, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -63, 70, -63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -63, -70, 63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 63, 70, -63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 63, -70, 63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+#Office skylobby
+<Floor 40>
+    ID = %floor%
+    Name = Office Skylobby
+    Type = Skylobby
+    Description = Skylobby for zone 2 offices
+
+<EndFloor>
+
+#rooms
+<Floors 41 to 78>
+    ID = %floor%
+    Name = Offices
+    Type = Office
+    Description = Zone 2 office level %floor%
+
+<EndFloors>
+
+#zone 2 mechanical
+<Floor 79>
+    ID = %floor%
+    Name = Mechanical
+    Type = Service
+    Description = Zone 2 mechanical
+    Height = 15
+    InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -63, -70, 63, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Brick, 0.5, -63, -70, 63, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External vents
+    WallOrientation = left
+    AddWall ExtVents Left, VentsExt, 0.5, -63, 70, -63, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Front, VentsExt, 0.5, -63, -70, 63, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    WallOrientation = right
+    AddWall ExtVents Back, VentsExt, 0.5, 63, 70, -63, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Right, VentsExt, 0.5, 63, -70, 63, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+
+    #Internal vents
+    WallOrientation = left
+    AddWall Vents Left, VentsInt, 0.5, -63, 70, -63, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Front, VentsInt, 0.5, -63, -70, 63, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    WallOrientation = right
+    AddWall Vents Back, VentsInt, 0.5, 63, 70, -63, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Right, VentsInt, 0.5, 63, -70, 63, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -63, -70, 63, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -63, -70, 63, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -63, 70, -63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -63, -70, 63, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 63, 70, -63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 63, -70, 63, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+
+#zone 2 setbacks
+<Floor 79>
+    FloorOrientation = top
+    AddFloor Left Setback, Brick, 0.5, -63, -70, -51, 70, %fullheight%, %fullheight%, 0, 0, True
+    AddFloor Right Setback, Brick, 0.5, 51, -70, 63, 70, %fullheight%, %fullheight%, 0, 0, True
+<EndFloor>
+
+#zone 3A skeleton
+<Floors 80 to 118>
+    Height = 8.5 #hotel height
+    if(%floor% < 82) Height = 10 #skylobby/service floor height
+    if(%floor% = 100) Height = 10 #skylobby height
+    if(%floor% = 101) Height = 10 #service floor height
+    if(%floor% > 101) Height = 9 #condo height
+    InterfloorHeight = 1.5
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -51, -70, 51, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -51, -70, 51, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -51, -70, 51, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -51, -70, 51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -51, 70, -51, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -51, 70, -51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 51, -70, 51, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 51, -70, 51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 51, 70, -51, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 51, 70, -51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Granite, 0.5, -51, -70, 51, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -51, -70, 51, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -51, 70, -51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -51, -70, 51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 51, 70, -51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 51, -70, 51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+# Hotel skylobby
+<Floor 80>
+    ID = %floor%
+    Name = Hotel Skylobby
+    Type = Skylobby
+    Description = Hotel skylobby for zone 3
+
+<EndFloor>
+
+# Hotel service and housekeeping
+<Floor 81>
+    ID = %floor%
+    Name = Maintenance
+    Type = Service
+    Description = Hotel service floor
+
+<EndFloor>
+
+# Hotel
+<Floors 82 to 99>
+    ID = %floor%
+    Name = Hotel
+    Type = Hotel
+    Description = Hotel level %floor%
+
+<EndFloors>
+
+# Main residential skylobby
+<Floor 100>
+    ID = %floor%
+    Name = Residential Skylobby
+    Type = Skylobby
+    Description = Residential skylobby for condos
+
+<EndFloor>
+
+#residential service floor
+<Floor 101>
+    ID = %floor%
+    Name = Maintenance
+    Type = Service
+    Description = Residential service floor
+
+<EndFloor>
+
+# Condos A
+<Floors 102 to 118>
+    ID = %floor%
+    Name = Residential
+    Type = Condominium
+    Description = Condominium level %floor%
+
+<EndFloors>
+
+#zone 3A mechanical
+<Floor 119>
+    ID = %floor%
+    Name = Mechanical
+    Type = Service
+    Description = Zone 3 lower mechanical floor
+    Height = 15
+    InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -51, -70, 51, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Brick, 0.5, -51, -70, 51, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External vents
+    WallOrientation = left
+    AddWall ExtVents Left, VentsExt, 0.5, -51, 70, -51, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Front, VentsExt, 0.5, -51, -70, 51, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    WallOrientation = right
+    AddWall ExtVents Back, VentsExt, 0.5, 51, 70, -51, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Right, VentsExt, 0.5, 51, -70, 51, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+
+    #Internal vents
+    WallOrientation = left
+    AddWall Vents Left, VentsInt, 0.5, -51, 70, -51, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Front, VentsInt, 0.5, -51, -70, 51, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    WallOrientation = right
+    AddWall Vents Back, VentsInt, 0.5, 51, 70, -51, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Right, VentsInt, 0.5, 51, -70, 51, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Granite, 0.5, -51, -70, 51, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -51, -70, 51, -70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -51, 70, -51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -51, -70, 51, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 51, 70, -51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 51, -70, 51, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+
+#zone 3A setbacks
+<Floor 119>
+    FloorOrientation = top
+    AddFloor Left Setback, Brick, 0.5, -51, -70, -39, 70, %fullheight%, %fullheight%, 0, 0, True
+    AddFloor Right Setback, Brick, 0.5, 39, -70, 51, 70, %fullheight%, %fullheight%, 0, 0, True
+<EndFloor>
+
+#zone 3B skeleton
+<Floors 120 to 134>
+
+    Height = 9 #residential height
+    InterfloorHeight = 1.5
+    if(%floor% > 129) Height = 10 #other height
+    if(%floor% > 129) InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -39, -70, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -39, -70, 39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -39, 70, -39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 39, -70, 39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 39, 70, -39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -39, -70, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+# Condos B
+<Floors 120 to 129>
+    ID = %floor%
+    Name = Residential
+    Type = Condominium
+    Description = Condominium level %floor%
+
+<EndFloors>
+
+#residential service floor
+<Floor 130>
+    ID = %floor%
+    Name = Maintenance
+    Type = Service
+    Description = Residential service floor
+
+<EndFloor>
+
+<Floor 131>
+    ID = %floor%
+    Name = Maintenance
+    Type = Service
+    Description = Maintenance for pool and general
+
+<EndFloor>
+
+<Floor 132>
+    ID = %floor%
+    Name = Pool
+    Type = Recreation
+    Description = SkyPool, for residential use
+
+<EndFloor>
+
+<Floor 133>
+    ID = %floor%
+    Name = Maintenance
+    Type = Service
+    Description = Restaurant service
+
+<EndFloor>
+
+<Floor 134>
+    ID = %floor%
+    Name = Restaurant
+    Type = Restaurant
+    Description = The Overlook Restaurant
+
+<EndFloor>
+
+#Ballroom
+<Floor 135>
+    ID = %floor%
+    Name = Grand Ballroom
+    Type = Ballroom
+    Description = 2-story Grand Ballroom with exterior decks on the setback
+    Height = 9
+    InterfloorHeight = 2.24
+    Group = 136 #enable 136 also, since both are merged
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -39, 0, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+    
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -39, -70, 39, -70, %height% + 14.24, %height% + 14.24, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -39, 70, -39, -70, %height% + 14.24, %height% + 14.24, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 39, -70, 39, 70, %height% + 14.24, %height% + 14.24, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 39, 70, -39, 70, %height% + 14.24, %height% + 14.24, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -39, 0, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -39, 0, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, 0, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    #AddInterfloorWall IFront, Brick, 0.5, -39, 0, 39, 0, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 39, 0, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+
+<Floor 136>
+    ID = %floor%
+    Name = Ballroom Balcony
+    Type = Ballroom
+    Description = Balcony above the main ballroom level
+    Height = 12
+    InterfloorHeight = 2.24
+    Group = 135 #enable 135 also, since both are merged
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -39, 0, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -39, -70, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #cover over interfloor gap
+    WallOrientation = left
+    AddWall Filler, Marble3, 0.2, -39, 0, 39, 0, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    #AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    #AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    #AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    #AddInterfloorWall IFront, Brick, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    #AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    #AddInterfloorWall IRight, Brick, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+
+#Skydeck
+<Floor 137>
+    ID = %floor%
+    Name = Observatory
+    Type = Observatory
+    Description = Skydeck
+    Height = 10
+    InterfloorHeight = 2.24
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Granite, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Marble3, 0.5, -39, -70, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -39, -70, 39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -39, 70, -39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 39, -70, 39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 39, 70, -39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -39, -70, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloor>
+
+#communications floors
+<Floors 138 to 140>
+    ID = %floor%
+    Name = Communications
+    Type = Communications
+    Description = Communications level %floor%
+    Height = 12
+    InterfloorHeight = 3
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Ceiling1, 0.5, -39, -70, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External walls
+    WallOrientation = left
+    AddWall Front, MainWindows, 0.5, -39, -70, 39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Front, InterExt, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Left, MainWindows, 0.5, -39, 70, -39, -70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Left, InterExt, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall Right, MainWindows, 0.5, 39, -70, 39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Right, InterExt, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+    AddWall Back, MainWindows, 0.5, 39, 70, -39, 70, %height%, %height%, %interfloorheight%, %interfloorheight%, 0.7, 0, True
+    AddWall Back, InterExt, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0.7, 0, True
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -39, -70, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+<EndFloors>
+
+#topside mechanical
+<Floor 141>
+    ID = %floor%
+    Name = Mechanical
+    Type = Service
+    Description = Zone 3 topside mechanical
+    Height = 20
+    InterfloorHeight = 4
+
+    #Floor
+    FloorOrientation = top
+    AddFloor Floor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, False
+
+    #Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Brick, 0.5, -39, -70, 39, 70, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #External vents
+    WallOrientation = left
+    AddWall ExtVents Left, VentsExt, 0.5, -39, 70, -39, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Front, VentsExt, 0.5, -39, -70, 39, -70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    WallOrientation = right
+    AddWall ExtVents Back, VentsExt, 0.5, 39, 70, -39, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+    AddWall ExtVents Right, VentsExt, 0.5, 39, -70, 39, 70, %fullheight%, %fullheight%, 0, 0, 0.5, 0, True
+
+    #Internal vents
+    WallOrientation = left
+    AddWall Vents Left, VentsInt, 0.5, -39, 70, -39, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Front, VentsInt, 0.5, -39, -70, 39, -70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    WallOrientation = right
+    AddWall Vents Back, VentsInt, 0.5, 39, 70, -39, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+    AddWall Vents Right, VentsInt, 0.5, 39, -70, 39, 70, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0.27, 0.5, False
+
+    #Interfloor bottom
+    FloorOrientation = bottom
+    AddInterfloorFloor IFloor, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0
+
+    #Interfloor top
+    FloorOrientation = top
+    AddInterfloorFloor ITop, Brick, 0.5, -39, -70, 39, 70, %interfloorheight% - 0.05, %interfloorheight% - 0.05, 0, 0
+
+    #Interfloor walls
+    WallOrientation = left
+    AddInterfloorWall ILeft, Brick, 0.5, -39, 70, -39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IFront, Brick, 0.5, -39, -70, 39, -70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddInterfloorWall IBack, Brick, 0.5, 39, 70, -39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+    AddInterfloorWall IRight, Brick, 0.5, 39, -70, 39, 70, %interfloorheight%, %interfloorheight%, 0, 0, 0, 0
+
+<EndFloor>
+
+# Roof with Mechanical Penthouse
+<Floor 142>
+    ID = R
+    Name = Rooftop Heliport
+    Type = Roof
+    Description = Roof and communications antennae
+    Height = 12
+    InterfloorHeight = 0
+
+    #Roof Base
+    FloorOrientation = top
+    AddFloor Roof, Brick, 0.5, -39, -70, 39, 70, 0, 0, 0, 0, True
+
+    #Antennae
+    CreateWallBox2 External, Left Antenna, Concrete, 0, -40, 4, 4, 300, 0, 0, 25
+    CreateWallBox2 External, Right Antenna, Concrete, 0, 40, 4, 4, 300, 0, 0, 25
+
+    #Penthouse Floor
+    FloorOrientation = top
+    #AddFloor PFloor, Brick, 0.5, -20, -40, 20, 40, 0, 0, 0, 0, False
+
+    #Penthouse Ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Ceiling1, 0.5, -20, -40, 20, 40, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #Penthouse internal walls
+    WallOrientation = left
+    AddWall Left, Brick, 0.5, -20, 40, -20, -40, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+    AddWall Front, Brick, 0.5, -20, -40, 20, -40, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+    WallOrientation = right
+    AddWall Back, Brick, 0.5, 20, 40, -20, 40, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+    AddWall Right, Brick, 0.5, 20, -40, 20, 40, %fullheight%, %fullheight%, 0, 0, 0, 0, False
+
+    #Penthouse external walls
+    WallOrientation = left
+    AddWall ExtLeft, Brick, 0.5, -20, 40, -20, -40, %fullheight%, %fullheight%, 0, 0, 0.7, 0, True
+    AddWall ExtFront, Brick, 0.5, -20, -40, 20, -40, %fullheight%, %fullheight%, 0, 0, 0.7, 0, True
+    WallOrientation = right
+    AddWall ExtBack, Brick, 0.5, 20, 40, -20, 40, %fullheight%, %fullheight%, 0, 0, 0.7, 0, True
+    AddWall ExtRight, Brick, 0.5, 20, -40, 20, 40, %fullheight%, %fullheight%, 0, 0, 0.7, 0, True
+
+    #Penthouse roof
+    FloorOrientation = top
+    AddFloor PRoof, Brick, 0.5, -20, -40, 20, 40, %fullheight%, %fullheight%, 0, 0, True
+<EndFloor>
+
+#Shaft 1
+AddShaft 1, 2, 6, 14, 0, 141
+ShaftCut 1, -4, -5, 5, 5, 0, 5
+
+#Shaft 2
+AddShaft 2, 2, -6, 14, 0, 5
+#ShaftCut 2, -4, -5, 5, 5, 0, 5
+
+#Shaft 3
+AddShaft 3, 2, -6, -14, 0, 5
+#ShaftCut 3, -4, -5, 5, 5, 0, 5
+
+#Shaft 4
+AddShaft 4, 2, 6, -14, 0, 5
+#ShaftCut 4, -4, -5, 5, 5, 0, 5
+
+#Shafts
+<Floors 0 to 141>
+    FloorOrientation = top
+    if(%floor% = 0) AddShaftFloor 1, Base, Brick, 0.5, -4, -5, 5, 5, 0, 0, 0, 0
+    if(%floor% = 141) AddShaftFloor 1, Top, Brick, 0.5, -4, -5, 5, 5, %fullheight%, %fullheight%, 0, 0
+    WallOrientation = left
+    AddShaftWall 1, Front, Brick, 0.5, -4, -5, 5, -5, %fullheight%, %fullheight%, 0, 0, 0, 0
+    AddShaftWall 1, Left, Brick, 0.5, -4, -5, -4, 5, %fullheight%, %fullheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddShaftWall 1, Back, Brick, 0.5, -4, 5, 5, 5, %fullheight%, %fullheight%, 0, 0, 0, 0
+    AddShaftWall 1, Right, Brick, 0.5, 5, -5, 5, 5, %fullheight%, %fullheight%, 0, 0, 0, 0
+<EndFloors>
+
+<Floors 0 to 141>
+    #sample walls
+    WallOrientation = right
+    AddWall LeftTest, Wall1, 0.3, 2, 8.7, 2, 19.3, %height%, %height%, 0, 0, 0, 0, False
+    AddWall FrontTest, Wall1, 0.3, 1.7, 9, 11.3, 9, %height%, %height%, 0, 0, 0, 0, False
+    WallOrientation = left
+    AddWall RightTest, Wall1, 0.3, 11, 8.7, 11, 19.3, %height%, %height%, 0, 0, 0, 0, False
+    AddWall BackTest, Wall1, 0.3, 1.7, 19, 11.3, 19, %height%, %height%, 0, 0, 0, 0, False
+<EndFloors>
+
+<Elevator 1>
+    #standard elevator; 7 feet wide, 6 feet deep
+    Speed = 21
+    Acceleration = 0.015
+    Deceleration = 0.01
+    OpenSpeed = 0.2
+    ServicedFloors = 0 - 141
+    AssignedShaft = 1
+    CreateElevator 6, 14, 0
+
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    AddFloor Floor, Wood2, 0.2, -3.2, -3.5, 3, 3.5, 0, 0, 0, 0
+
+    #ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Elev1, 0.2, -3.2, -3.5, 3, 3.5, 8, 8, 0, 0
+
+    #back and right walls (in global perspective)
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    AddWall Back, Wood1, 0.2, -3, 3.5, 3, 3.5, 8, 8, 0, 0, 2, 2
+    AddWall Right, Wood1, 0.2, 3, -3.5, 3, 3.5, 8, 8, 0, 0, 2, 2
+    
+    #front wall
+    WallOrientation = left
+    AddWall Front, Wood1, 0.2, -3, -3.5, 3, -3.5, 8, 8, 0, 0, 2, 2
+
+    #panels
+    WallOrientation = left
+    DrawWalls = true, true, false, true, false, false
+    AddWall Left Panel, Wood1, 0.2, -3, -3.5, -3, -1.75, 8, 8, 0, 0, 0.66, 2
+    DrawWalls = true, true, true, false, false, false
+    AddWall Right Panel, Wood1, 0.2, -3, 1.75, -3, 3.5, 8, 8, 0, 0, 0.66, 2
+
+    #doors
+    WallOrientation = right
+    DrawWalls = true, true, true, true, true, true
+    AddDoors ElevDoors, 0.2, -3.01, 0, 3.5, 8, false, 2, 2 #doors
+    AddShaftDoors ElevDoors, 0.2, -3.3, 0, 2, 2 #shaft doors
+    WallOrientation = left
+
+    #panel
+    CreatePanel ElevExtPanels, 3, 4, right, -2.7, 2.63, 0.5, 1, 4.5, 0.3, 0.45, 0, 0
+    AddFloorButton Button135, 1, 3, 135
+    AddFloorButton Button79, 1, 2, 79
+    AddFloorButton Button40, 1, 1, 40
+    AddFloorButton Button14, 2, 3, 14
+    AddFloorButton ButtonM, 2, 2, 1
+    AddFloorButton ButtonL, 2, 1, 0
+    AddControlButton ButtonOpen, 3, 1, open
+    AddControlButton ButtonClose, 3, 2, close
+    AddControlButton ButtonCancel, 4, 1, cancel
+    AddControlButton ButtonStop, 4, 2, stop
+    AddControlButton ButtonAlarm, 4, 3, alarm
+    
+    #Floor Indicator
+    AddFloorIndicator right, -2.7, 2.63, 0.7, 0.5, 6.5
+
+<EndElevator>
+
+<Elevator 2>
+    #standard elevator; 7 feet wide, 6 feet deep
+    Speed = 21
+    Acceleration = 0.015
+    Deceleration = 0.01
+    OpenSpeed = 0.2
+    ServicedFloors = 0, 1, 2, 3, 4, 5
+    AssignedShaft = 2
+    CreateElevator -6, 14, 0
+
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    AddFloor Floor, Wood2, 0.2, -3, -3.5, 3.2, 3.5, 0, 0, 0, 0
+
+    #ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Elev1, 0.2, -3, -3.5, 3.2, 3.5, 8, 8, 0, 0
+
+    #back wall (in global perspective)
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    AddWall Back, Wood1, 0.2, -3, 3.5, 3, 3.5, 8, 8, 0, 0, 2, 2
+    
+    #front and left walls
+    WallOrientation = left
+    AddWall Front, Wood1, 0.2, -3, -3.5, 3, -3.5, 8, 8, 0, 0, 2, 2
+    AddWall Left, Wood1, 0.2, -3, -3.5, -3, 3.5, 8, 8, 0, 0, 2, 2
+
+    #panels
+    WallOrientation = right
+    DrawWalls = true, true, false, true, false, false
+    AddWall Left Panel, Wood1, 0.2, 3, -3.5, 3, -1.75, 8, 8, 0, 0, 0.66, 2
+    DrawWalls = true, true, true, false, false, false
+    AddWall Right Panel, Wood1, 0.2, 3, 1.75, 3, 3.5, 8, 8, 0, 0, 0.66, 2
+
+    #doors
+    WallOrientation = left
+    DrawWalls = true, true, true, true, true, true
+    AddDoors ElevDoors, 0.2, 3.01, 0, 3.5, 8, false, 2, 2 #doors
+    AddShaftDoors ElevDoors, 0.2, 3.3, 0, 2, 2 #shaft doors
+    WallOrientation = left
+
+<EndElevator>
+
+<Elevator 3>
+    #standard elevator; 7 feet wide, 6 feet deep
+    Speed = 21
+    Acceleration = 0.015
+    Deceleration = 0.01
+    OpenSpeed = 0.2
+    ServicedFloors = 0, 1, 2, 3, 4, 5
+    AssignedShaft = 3
+    CreateElevator -6, -14, 0
+
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    AddFloor Floor, Wood2, 0.2, -3.5, -3.2, 3.5, 3, 0, 0, 0, 0
+    
+    #ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Elev1, 0.2, -3.5, -3.2, 3.5, 3, 8, 8, 0, 0 #ceiling
+    
+    #back and right walls
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    AddWall Back, Wood1, 0.2, -3.5, 3, 3.5, 3, 8, 8, 0, 0, 2, 2 #back wall
+    AddWall Right, Wood1, 0.2, 3.5, -3, 3.5, 3, 8, 8, 0, 0, 2, 2 #right wall
+    
+    #left wall
+    WallOrientation = left
+    AddWall Left, Wood1, 0.2, -3.5, -3, -3.5, 3, 8, 8, 0, 0, 2, 2 #left wall
+
+    #panels
+    DrawWalls = true, true, false, true, false, false
+    AddWall Left Panel, Wood1, 0.2, -3.5, -3, -1.75, -3, 8, 8, 0, 0, 0.66, 2 #left panel
+    DrawWalls = true, true, true, false, false, false
+    AddWall Right Panel, Wood1, 0.2, 1.75, -3, 3.5, -3, 8, 8, 0, 0, 0.66, 2 #right panel
+    
+    #doors
+    WallOrientation = right
+    DrawWalls = true, true, true, true, true, true
+    AddDoors ElevDoors, 0.2, 0, -3.01, 3.5, 8, true, 2, 2 #doors
+    AddShaftDoors ElevDoors, 0.2, 0, -3.3, 2, 2 #shaft doors
+
+<EndElevator>
+
+<Elevator 4>
+    #standard elevator; 7 feet wide, 6 feet deep
+    Speed = 21
+    Acceleration = 0.015
+    Deceleration = 0.01
+    OpenSpeed = 0.2
+    ServicedFloors = 0, 1, 2, 3, 4, 5
+    AssignedShaft = 4
+    CreateElevator 6, -14, 0
+
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    AddFloor Floor, Wood2, 0.2, -3.5, -3, 3.5, 3.2, 0, 0, 0, 0
+    
+    #ceiling
+    FloorOrientation = bottom
+    AddFloor Ceiling, Elev1, 0.2, -3.5, -3, 3.5, 3.2, 8, 8, 0, 0 #ceiling
+    
+    #right wall
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    AddWall Right, Wood1, 0.2, 3.5, -3, 3.5, 3, 8, 8, 0, 0, 2, 2 #right wall
+    
+    #front and left walls
+    WallOrientation = left
+    AddWall Front, Wood1, 0.2, -3.5, -3, 3.5, -3, 8, 8, 0, 0, 2, 2 #front wall
+    AddWall Left, Wood1, 0.2, -3.5, -3, -3.5, 3, 8, 8, 0, 0, 2, 2 #left wall
+
+    #panels
+    WallOrientation = right
+    DrawWalls = true, true, false, true, false, false
+    AddWall Left Panel, Wood1, 0.2, -3.5, 3, -1.75, 3, 8, 8, 0, 0, 0.66, 2 #left panel
+    DrawWalls = true, true, true, false, false, false
+    AddWall Right Panel, Wood1, 0.2, 1.75, 3, 3.5, 3, 8, 8, 0, 0, 0.66, 2 #right panel
+    
+    #doors
+    WallOrientation = left
+    DrawWalls = true, true, true, true, true, true
+    AddDoors ElevDoors, 0.2, 0, 3.01, 3.5, 8, true, 2, 2 #doors
+    AddShaftDoors ElevDoors, 0.2, 0, 3.3, 2, 2 #shaft doors
+
+<EndElevator>
+
+#call buttons
+<Floors 0 to 141>
+    CallButtonElevators = 1
+    CreateCallButtons ElevExtPanels, CallButtonsTex, CallButtonsTex, 1.69, 10.5, 4, left, 0.5, 1, true, 0, 0
+<EndFloors>
+
+#stairs 1
+CreateStairwell 1, 50, 50, 0, 10
+
+<Floors 0 to 10>
+    AddStairs 1, Stairs, Stairs, left, 0, 0, 5, 0.5, 0.5, 10, 0, 0, 0
+    AddStairsFloor 1, Landing, Brick, 0.5, 5, 0, 10, 5, 5, 5, 1, 1
+<EndFloors>
+
+<Floors 0 to 141>
+    #elevator entry walls
+    DrawWalls = true, true, false, false, false, false
+    AddWall ElevLeft, Wall1, 0, 1.7, 12.25, 2.5, 12.25, 8, 8, 0, 0, 0, 0, False
+    AddWall ElevRight, Wall1, 0, 1.7, 15.75, 2.5, 15.75, 8, 8, 0, 0, 0, 0, False
+    AddFloor ElevBottom, Ceiling1, 0, 2, 12.25, 2.7, 15.75, 0, 0, 0, 0, False
+    AddFloor ElevTop, Ceiling1, 0, 1.7, 12.25, 2.7, 15.75, 8, 8, 0, 0, False
+<EndFloors>
+
+# Main load-bearing columns
+#Top set
+CreateWallBox2 ColumnFrame, MainTop1, Brick, 35.5, 68.2, 3, 3, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, MainTop2, Brick, -35.5, 68.2, 3, 3, Floor(142).Altitude + 2, 0, 0, 0
+#Bottom set
+CreateWallBox2 ColumnFrame, MainBottom1, Brick, 35.5, -68.2, 3, 3, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, MainBottom2, Brick, -35.5, -68.2, 3, 3, Floor(142).Altitude + 2, 0, 0, 0
+#Left set
+CreateWallBox2 ColumnFrame, MainLeft1, Brick, -71.5, 47, 3, 3, Floor(40).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, MainLeft2, Brick, -71.5, -47, 3, 3, Floor(40).Altitude + 2, 0, 0, 0
+#Right set
+CreateWallBox2 ColumnFrame, MainRight1, Brick, 71.5, 47, 3, 3, Floor(40).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, MainRight2, Brick, 71.5, -47, 3, 3, Floor(40).Altitude + 2, 0, 0, 0
+
+# Core load-bearing columns
+#Set 1
+CreateWallBox2 ColumnFrame, CoreSet1A, Brick, -42.6, 21, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet1B, Brick, -42.6, 7, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet1C, Brick, -42.6, -7, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet1D, Brick, -42.6, -21, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+
+#Set 2
+CreateWallBox2 ColumnFrame, CoreSet2A, Brick, -13.5, 21, 1, 2, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet2B, Brick, -13.5, 7, 1, 2, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet2C, Brick, -13.5, -7, 1, 2, Floor(130).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet2D, Brick, -13.5, -21, 1, 2, Floor(130).Altitude + 2, 0, 0, 0
+
+#Set 3
+CreateWallBox2 ColumnFrame, CoreSet3A, Brick, 13.5, 21, 1, 2, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet3B, Brick, 13.5, 7, 1, 2, Floor(142).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet3C, Brick, 13.5, -7, 1, 2, Floor(130).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet3D, Brick, 13.5, -21, 1, 2, Floor(130).Altitude + 2, 0, 0, 0
+
+#Set 4
+CreateWallBox2 ColumnFrame, CoreSet4A, Brick, 42.6, 21, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet4B, Brick, 42.6, 7, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet4C, Brick, 42.6, -7, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
+CreateWallBox2 ColumnFrame, CoreSet4D, Brick, 42.6, -21, 1, 2, Floor(79).Altitude + 2, 0, 0, 0
