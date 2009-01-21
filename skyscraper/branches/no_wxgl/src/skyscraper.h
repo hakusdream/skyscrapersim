@@ -25,6 +25,7 @@
 int main (int argc, char* argv[]);
 
 class Skyscraper : public wxApp
+//class Skyscraper
 {
 public:
 	virtual bool OnInit(void);
@@ -39,7 +40,7 @@ public:
 	csArray<csString> BuildingData;
 };
 
-class MainScreen : public wxFrame
+/*class MainScreen : public wxFrame
 {
 public:
 	MainScreen();
@@ -54,5 +55,5 @@ public:
 	DECLARE_EVENT_TABLE()
 
 };
-
+*/
 DECLARE_APP(Skyscraper)

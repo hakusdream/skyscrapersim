@@ -27,7 +27,7 @@
 
 #include <wx/wx.h>
 #include <crystalspace.h>
-#include "ivideo/wxwin.h"
+//#include "ivideo/wxwin.h"
 #include "globals.h"
 #include "skyscraper.h"
 #include "sbs.h"
@@ -37,16 +37,16 @@
 CS_IMPLEMENT_APPLICATION
 IMPLEMENT_APP(Skyscraper)
 
-BEGIN_EVENT_TABLE(MainScreen, wxFrame)
+/*BEGIN_EVENT_TABLE(MainScreen, wxFrame)
   EVT_SHOW(MainScreen::OnShow)
   EVT_ICONIZE(MainScreen::OnIconize)
   EVT_SIZE(MainScreen::OnSize)
   EVT_CLOSE(MainScreen::OnClose)
 END_EVENT_TABLE()
-
+*/
 SBS *Simcore;
 DebugPanel *dpanel;
-MainScreen *window;
+//MainScreen *window;
 
 #ifdef CS_PLATFORM_WIN32
 
@@ -84,17 +84,17 @@ bool Skyscraper::OnInit(void)
 	Simcore = new SBS();
 
 	//Create main window
-	window = new MainScreen();
-	window->ShowWindow();
+	//window = new MainScreen();
+	//window->ShowWindow();
 
 	#if defined(wxUSE_UNICODE) && wxUSE_UNICODE
 	char** csargv;
 	csargv = (char**)cs_malloc(sizeof(char*) * argc);
 	for (int i = 0; i < argc; i++)
 		csargv[i] = strdup(wxString(argv[i]).mb_str().data());
-	if (!Simcore->Initialize(argc, csargv, window->panel))
+	if (!Simcore->Initialize(argc, csargv))
 	#else
-	if (!Simcore->Initialize(argc, argv, window->panel))
+	if (!Simcore->Initialize(argc, argv))
 	#endif
 	{
 		Simcore->ReportError("Error initializing system!");
@@ -129,7 +129,7 @@ bool Skyscraper::OnInit(void)
 	dpanel = new DebugPanel(NULL, -1);
 	dpanel->Show(true);
 	dpanel->SetPosition(wxPoint(10, 10));
-	window->Raise();
+	//window->Raise();
 
 	//show main window
 	//window->ShowWindow();
@@ -148,13 +148,13 @@ int Skyscraper::OnExit()
 	dpanel->Destroy();
 	delete Simcore;
 	Simcore = 0;
-	delete window;
-	window = 0;
+	//delete window;
+	//window = 0;
 	Cleanup();
 
 	return 0;
 }
-
+/*
 MainScreen::MainScreen() : wxFrame(0, -1, wxT("Skyscraper 1.3 Alpha"), wxDefaultPosition, wxSize(640, 480), wxDEFAULT_FRAME_STYLE)
 {
 	this->Center();
@@ -195,3 +195,4 @@ void MainScreen::ShowWindow()
 	Show(true);
 	panel->Show(true);
 }
+*/

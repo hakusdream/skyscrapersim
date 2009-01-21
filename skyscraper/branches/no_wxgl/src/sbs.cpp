@@ -163,8 +163,8 @@ SBS::~SBS()
 	printer.Invalidate();
 
 	//delete wx canvas
-	delete canvas;
-	canvas = 0;
+	//delete canvas;
+	//canvas = 0;
 }
 
 void SBS::Start(wxApp *app)
@@ -399,7 +399,7 @@ void SBS::SetupFrame()
 	//Main simulator loop
 
 	//resize canvas if needed
-	if (canvas->GetSize().GetWidth() != canvas_width || canvas->GetSize().GetHeight() != canvas_height)
+	/*if (canvas->GetSize().GetWidth() != canvas_width || canvas->GetSize().GetHeight() != canvas_height)
 	{
 		//update canvas size values
 		canvas_width = canvas->GetSize().GetWidth();
@@ -414,7 +414,7 @@ void SBS::SetupFrame()
 		view->SetRectangle(0, 0, canvas_width, canvas_height);
 		g3d->SetDimensions(canvas_width, canvas_height);
 		view->ClearView();
-	}
+	}*/
 
 	//This makes sure all timer steps are the same size, in order to prevent the physics from changing
 	//depending on frame rate
@@ -496,14 +496,14 @@ static bool SBSEventHandler(iEvent& Event)
 		return false;
 }
 
-bool SBS::Initialize(int argc, const char* const argv[], wxPanel* RenderObject)
+bool SBS::Initialize(int argc, const char* const argv[])
 {
 	object_reg = csInitializer::CreateEnvironment (argc, argv);
 	if (!object_reg) return false;
 
 	if (!csInitializer::RequestPlugins (object_reg,
 		CS_REQUEST_VFS,
-		CS_REQUEST_PLUGIN("crystalspace.graphics2d.wxgl", iGraphics2D),
+		//CS_REQUEST_PLUGIN("crystalspace.graphics2d.wxgl", iGraphics2D),
 		CS_REQUEST_OPENGL3D,
 		CS_REQUEST_ENGINE,
 		CS_REQUEST_FONTSERVER,
@@ -591,13 +591,13 @@ bool SBS::Initialize(int argc, const char* const argv[], wxPanel* RenderObject)
 
 	g2d = g3d->GetDriver2D();
 	g2d->AllowResize(true); //allow canvas resizing
-	wxwin = scfQueryInterface<iWxWindow> (g2d);
+	/*wxwin = scfQueryInterface<iWxWindow> (g2d);
 	if(!wxwin) return ReportError("Canvas is no iWxWindow plugin!");
 	wxwin->SetParent(RenderObject);
 	canvas = RenderObject;
 	canvas_width = canvas->GetSize().GetWidth();
 	canvas_height = canvas->GetSize().GetHeight();
-
+	*/
 	//font = g2d->GetFontServer()->LoadFont(CSFONT_LARGE);
 
 	// Open the main system. This will open all the previously loaded plug-ins.
@@ -627,6 +627,7 @@ bool SBS::Initialize(int argc, const char* const argv[], wxPanel* RenderObject)
 
 	//set up viewport
 	view = csPtr<iView>(new csView (engine, g3d));
+	view.AttachNew(new csView (engine, g3d));
 	view->SetRectangle(0, 0, g2d->GetWidth(), g2d->GetHeight());
 
 	//create camera object
@@ -2470,10 +2471,10 @@ void SBS::PushFrame()
 		vc->Advance();
 
 	equeue->Process();
-#ifndef CS_PLATFORM_WIN32
+//#ifndef CS_PLATFORM_WIN32
 	while (App->Pending())
 		App->Dispatch();
-#endif
+//#endif
 }
 
 csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, csVector3 start, csVector3 end)

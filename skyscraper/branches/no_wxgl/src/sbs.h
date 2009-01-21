@@ -150,7 +150,7 @@ public:
 	void Wait(long Milliseconds);
 	bool LoadTexture(const char *filename, const char *name, float widthmult, float heightmult);
 	float AutoSize(float n1, float n2, bool iswidth, float offset);
-	bool Initialize(int argc, const char* const argv[], wxPanel* RenderObject);
+	bool Initialize(int argc, const char* const argv[]);
 	void Start(wxApp *app);
 	void Run();
 	int CreateSky(const char *filenamebase);
@@ -284,8 +284,8 @@ private:
 
 	//canvas data
 	int canvas_width, canvas_height;
-	wxPanel* canvas;
-	csRef<iWxWindow> wxwin;
+	//wxPanel* canvas;
+	//csRef<iWxWindow> wxwin;
 
 	//object arrays
 	csArray<FloorMap> FloorArray; //floor object array
