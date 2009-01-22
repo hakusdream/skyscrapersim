@@ -23,10 +23,10 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-//#ifdef _WIN32
-//	#define CS_IMPLEMENT_PLATFORM_APPLICATION
-//	#define CS_NO_MALLOC_OVERRIDE
-//#endif
+#ifdef _WIN32
+	#define CS_IMPLEMENT_PLATFORM_APPLICATION
+	#define CS_NO_MALLOC_OVERRIDE
+#endif
 
 //#include <wx/wx.h>
 //#include <wx/variant.h>
@@ -35,9 +35,9 @@
 #include "sbs.h"
 #include "unix.h"
 
-//#ifdef _WIN32
-//	CS_IMPLEMENT_APPLICATION
-//#endif
+#ifdef _WIN32
+	CS_IMPLEMENT_APPLICATION
+#endif
 
 SBS *sbs; //self reference
 
@@ -111,8 +111,8 @@ SBS::SBS()
 	RevXold = false;
 	RevYold = false;
 	RevZold = false;
-	canvas_width = 0;
-	canvas_height = 0;
+	//canvas_width = 0;
+	//canvas_height = 0;
 	remaining_delta = 0;
 	delta = 0.01f;
 	ShowFullShafts = false;
@@ -521,7 +521,6 @@ bool SBS::Initialize(int argc, const char* const argv[], const char *windowtitle
 
 	FocusGained = csevFocusGained (object_reg);
 	FocusLost = csevFocusLost (object_reg);
-	KeyboardDown = csevKeyboardDown (object_reg);
 
 	if (!csInitializer::SetupEventHandler (object_reg, SBSEventHandler))
 		return ReportError ("Couldn't initialize event handler!");

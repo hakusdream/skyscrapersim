@@ -240,7 +240,6 @@ private:
 
 	csEventID FocusGained;
 	csEventID FocusLost;
-	csEventID KeyboardDown;
 
 	//mouse status
 	bool MouseDown;
@@ -287,7 +286,7 @@ private:
 	bool AutoX, AutoY; //autosizing
 
 	//canvas data
-	int canvas_width, canvas_height;
+	//int canvas_width, canvas_height;
 
 	//object arrays
 	csArray<FloorMap> FloorArray; //floor object array
@@ -299,7 +298,7 @@ private:
 	void PrintBanner();
 
 	//wx app object
-	wxApp *App;
+	//wxApp *App;
 
 	//doorway data
 	bool wall1a, wall1b, wall2a, wall2b;

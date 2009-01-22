@@ -25,7 +25,7 @@
 #ifndef _SKYSCRAPER_H
 #define _SKYSCRAPER_H
 
-#include <sbs.h>
+#include "sbs.h"
 
 int main (int argc, char* argv[]);
 
@@ -59,14 +59,14 @@ private:
 		{
 			s->PushFrame();
 			#ifndef CS_PLATFORM_WIN32
-			        while (app->Pending())
-			              app->Dispatch();
+				while (app->Pending())
+				app->Dispatch();
 			#endif
 		}
 	};
 
 	//timer object
-        Pump* p;
+	Pump* p;
 };
 
 /*class MainScreen : public wxFrame

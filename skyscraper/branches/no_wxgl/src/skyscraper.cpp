@@ -23,7 +23,7 @@
 */
 
 #define CS_IMPLEMENT_PLATFORM_APPLICATION
-//#define CS_NO_MALLOC_OVERRIDE
+#define CS_NO_MALLOC_OVERRIDE
 
 #include <wx/wx.h>
 #include <crystalspace.h>
@@ -200,27 +200,27 @@ void MainScreen::ShowWindow()
 
 void Skyscraper::Run()
 {
-        //start runloop
+	//start runloop
 
-        Simcore->Report("Running simulation...");
+	Simcore->Report("Running simulation...");
 
-        //start simulation with a timer-based runloop
-        p = new Pump();
-        p->s = Simcore;
+	//start simulation with a timer-based runloop
+	p = new Pump();
+	p->s = Simcore;
 	p->app = this;
-        if (Simcore->FrameLimiter == true)
+	if (Simcore->FrameLimiter == true)
 		p->Start(1000 / Simcore->FrameRate);
-        else
-                p->Start(1);
+	else
+		p->Start(1);
 }
 
 void Skyscraper::Stop()
 {
 	//stop and delete timer
-        p->Stop();
-        p->s = 0;
+	p->Stop();
+	p->s = 0;
 	p->app = 0;
-        delete p;
-        p = 0;
+	delete p;
+	p = 0;
 }
 
