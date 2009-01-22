@@ -23,21 +23,21 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifdef _WIN32
-	#define CS_IMPLEMENT_PLATFORM_APPLICATION
-	#define CS_NO_MALLOC_OVERRIDE
-#endif
+//#ifdef _WIN32
+//	#define CS_IMPLEMENT_PLATFORM_APPLICATION
+//	#define CS_NO_MALLOC_OVERRIDE
+//#endif
 
-#include <wx/wx.h>
-#include <wx/variant.h>
-#include <wx/app.h>
+//#include <wx/wx.h>
+//#include <wx/variant.h>
+//#include <wx/app.h>
 #include "globals.h"
 #include "sbs.h"
 #include "unix.h"
 
-#ifdef _WIN32
-	CS_IMPLEMENT_APPLICATION
-#endif
+//#ifdef _WIN32
+//	CS_IMPLEMENT_APPLICATION
+//#endif
 
 SBS *sbs; //self reference
 
@@ -137,11 +137,11 @@ SBS::~SBS()
 	//engine destructor
 
 	//stop and delete timer
-	p->Stop();
-	p->s = 0;
-	delete p;
-	p = 0;
-	App = 0;
+	//p->Stop();
+	//p->s = 0;
+	//delete p;
+	//p = 0;
+	//App = 0;
 
 	//delete camera object
 	delete camera;
@@ -167,12 +167,13 @@ SBS::~SBS()
 	//canvas = 0;
 }
 
-void SBS::Start(wxApp *app)
+//void SBS::Start(wxApp *app)
+void SBS::Start()
 {
 	//set running value
 	IsRunning = true;
 
-	App = app;
+	//App = app;
 
 	//create skybox
 	CreateSky(SkyName);
@@ -240,7 +241,7 @@ void SBS::Start(wxApp *app)
 
 }
 
-void SBS::Run()
+/*void SBS::Run()
 {
 	//start runloop
 
@@ -253,7 +254,7 @@ void SBS::Run()
 		p->Start(1000 / FrameRate);
 	else
 		p->Start(1);
-}
+}*/
 
 void SBS::Wait(long milliseconds)
 {
@@ -320,48 +321,48 @@ void SBS::GetInput()
 	if (mouse->GetLastButton(0) == false)
 		MouseDown = false;
 
-	//if (wxGetKeyState(WXK_ESCAPE))
-		//p->Stop();
+	if (kbd->GetKeyState(CSKEY_ESC))
+		if (equeue) equeue->GetEventOutlet()->Broadcast (csevQuit(object_reg));
 
-	if (wxGetKeyState(WXK_F2))
-		Report(wxVariant(FPS).GetString().ToAscii());
+	if (kbd->GetKeyState(CSKEY_F2))
+		//Report(wxVariant(FPS).GetString().ToAscii());
 
 	camera->speed = 1;
 
-	if (wxGetKeyState(WXK_CONTROL))
+	if (kbd->GetKeyState(CSKEY_CTRL))
 		camera->speed = 0.5;
-	else if (wxGetKeyState(WXK_SHIFT))
+	else if (kbd->GetKeyState(CSKEY_SHIFT))
 		camera->speed = 2;
 
-	if (wxGetKeyState(WXK_ALT))
+	if (kbd->GetKeyState(CSKEY_ALT))
 	{
 		//strafe movement
-		if (wxGetKeyState(WXK_RIGHT))
+		if (kbd->GetKeyState(CSKEY_RIGHT))
 			camera->Strafe(1);
-		if (wxGetKeyState(WXK_LEFT))
+		if (kbd->GetKeyState(CSKEY_LEFT))
 			camera->Strafe(-1);
-		if (wxGetKeyState(WXK_UP))
+		if (kbd->GetKeyState(CSKEY_UP))
 			camera->Float(1);
-		if (wxGetKeyState(WXK_DOWN))
+		if (kbd->GetKeyState(CSKEY_DOWN))
 			camera->Float(-1);
 	}
 	else
 	{
-		if (wxGetKeyState(WXK_RIGHT))
+		if (kbd->GetKeyState(CSKEY_RIGHT))
 			camera->Turn(1);
-		if (wxGetKeyState(WXK_LEFT))
+		if (kbd->GetKeyState(CSKEY_LEFT))
 			camera->Turn(-1);
-		if (wxGetKeyState(WXK_PRIOR)) //page up
+		if (kbd->GetKeyState(CSKEY_PGUP))
 			camera->Look(1);
-		if (wxGetKeyState(WXK_NEXT)) //page down
+		if (kbd->GetKeyState(CSKEY_PGDN))
 			camera->Look(-1);
-		if (wxGetKeyState(WXK_UP))
+		if (kbd->GetKeyState(CSKEY_UP))
 			camera->Step(1);
-		if (wxGetKeyState(WXK_DOWN))
+		if (kbd->GetKeyState(CSKEY_DOWN))
 			camera->Step(-1);
-		if (wxGetKeyState(WXK_SPACE))
+		if (kbd->GetKeyState(CSKEY_SPACE))
 			camera->Jump();
-		if (wxGetKeyState(WXK_F3))
+		if (kbd->GetKeyState(CSKEY_F3))
 		{
 			//reset view
 			camera->SetToStartDirection();
@@ -369,9 +370,9 @@ void SBS::GetInput()
 		}
 
 		//values from old version
-		if (wxGetKeyState(WXK_HOME))
+		if (kbd->GetKeyState(CSKEY_HOME))
 			camera->Float(1);
-		if (wxGetKeyState(WXK_END))
+		if (kbd->GetKeyState(CSKEY_END))
 			camera->Float(-1);
 	}
 }
@@ -496,7 +497,7 @@ static bool SBSEventHandler(iEvent& Event)
 		return false;
 }
 
-bool SBS::Initialize(int argc, const char* const argv[])
+bool SBS::Initialize(int argc, const char* const argv[], const char *windowtitle)
 {
 	object_reg = csInitializer::CreateEnvironment (argc, argv);
 	if (!object_reg) return false;
@@ -591,6 +592,11 @@ bool SBS::Initialize(int argc, const char* const argv[])
 
 	g2d = g3d->GetDriver2D();
 	g2d->AllowResize(true); //allow canvas resizing
+
+	//set window title
+	iNativeWindow* nw = g2d->GetNativeWindow();
+	if (nw) nw->SetTitle(windowtitle);
+
 	/*wxwin = scfQueryInterface<iWxWindow> (g2d);
 	if(!wxwin) return ReportError("Canvas is no iWxWindow plugin!");
 	wxwin->SetParent(RenderObject);
@@ -626,7 +632,7 @@ bool SBS::Initialize(int argc, const char* const argv[])
 	csPrintf("Done\n");
 
 	//set up viewport
-	view = csPtr<iView>(new csView (engine, g3d));
+	//view = csPtr<iView>(new csView (engine, g3d));
 	view.AttachNew(new csView (engine, g3d));
 	view->SetRectangle(0, 0, g2d->GetWidth(), g2d->GetHeight());
 
@@ -2472,8 +2478,8 @@ void SBS::PushFrame()
 
 	equeue->Process();
 //#ifndef CS_PLATFORM_WIN32
-	while (App->Pending())
-		App->Dispatch();
+	//while (App->Pending())
+	//	App->Dispatch();
 //#endif
 }
 
@@ -2821,11 +2827,12 @@ int SBS::AddDoorwayWalls(csRef<iThingFactoryState> mesh, const char *texture, fl
 	return index;
 }
 
+/*
 void SBS::Stop()
 {
 	//stop timer
 	p->Stop();
-}
+}*/
 
 void SBS::SetAutoSize(bool x, bool y)
 {

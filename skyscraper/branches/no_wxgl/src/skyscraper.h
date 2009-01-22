@@ -22,6 +22,11 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#ifndef _SKYSCRAPER_H
+#define _SKYSCRAPER_H
+
+#include <sbs.h>
+
 int main (int argc, char* argv[]);
 
 class Skyscraper : public wxApp
@@ -38,6 +43,30 @@ public:
 	//File I/O
 	csString BuildingFile;
 	csArray<csString> BuildingData;
+
+	void Run();
+	void Stop();
+
+private:
+	//frame rate handler class
+	class Pump : public wxTimer
+	{
+		public:
+		SBS* s;
+		wxApp* app;
+		Pump() { };
+		virtual void Notify()
+		{
+			s->PushFrame();
+			#ifndef CS_PLATFORM_WIN32
+			        while (app->Pending())
+			              app->Dispatch();
+			#endif
+		}
+	};
+
+	//timer object
+        Pump* p;
 };
 
 /*class MainScreen : public wxFrame
@@ -57,3 +86,6 @@ public:
 };
 */
 DECLARE_APP(Skyscraper)
+
+#endif
+

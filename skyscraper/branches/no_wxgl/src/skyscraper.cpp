@@ -23,14 +23,13 @@
 */
 
 #define CS_IMPLEMENT_PLATFORM_APPLICATION
-#define CS_NO_MALLOC_OVERRIDE
+//#define CS_NO_MALLOC_OVERRIDE
 
 #include <wx/wx.h>
 #include <crystalspace.h>
 //#include "ivideo/wxwin.h"
 #include "globals.h"
 #include "skyscraper.h"
-#include "sbs.h"
 #include "debugpanel.h"
 #include "loader.h"
 
@@ -50,10 +49,10 @@ DebugPanel *dpanel;
 
 #ifdef CS_PLATFORM_WIN32
 
-#ifndef SW_SHOWNORMAL
+/*#ifndef SW_SHOWNORMAL
 	#define SW_SHOWNORMAL 1
 #endif
-
+*/
 int main (int argc, char* argv[])
 {
 	return WinMain (GetModuleHandle (0), 0, GetCommandLineA (), SW_SHOWNORMAL);
@@ -92,9 +91,9 @@ bool Skyscraper::OnInit(void)
 	csargv = (char**)cs_malloc(sizeof(char*) * argc);
 	for (int i = 0; i < argc; i++)
 		csargv[i] = strdup(wxString(argv[i]).mb_str().data());
-	if (!Simcore->Initialize(argc, csargv))
+	if (!Simcore->Initialize(argc, csargv, "Skyscraper 1.3 Alpha"))
 	#else
-	if (!Simcore->Initialize(argc, argv))
+	if (!Simcore->Initialize(argc, argv, "Skyscraper 1.3 Alpha"))
 	#endif
 	{
 		Simcore->ReportError("Error initializing system!");
@@ -123,7 +122,8 @@ bool Skyscraper::OnInit(void)
 	Selector = 0;
 
 	//start simulation
-	Simcore->Start(this);
+	//Simcore->Start(this);
+	Simcore->Start();
 
 	//load dialogs
 	dpanel = new DebugPanel(NULL, -1);
@@ -135,7 +135,7 @@ bool Skyscraper::OnInit(void)
 	//window->ShowWindow();
 
 	//run simulation
-	Simcore->Run();
+	Run();
 
 	return true;
 }
@@ -143,7 +143,8 @@ bool Skyscraper::OnInit(void)
 int Skyscraper::OnExit()
 {
 	//clean up
-	Simcore->Stop();
+
+	Stop();
 	dpanel->timer->Stop();
 	dpanel->Destroy();
 	delete Simcore;
@@ -196,3 +197,30 @@ void MainScreen::ShowWindow()
 	panel->Show(true);
 }
 */
+
+void Skyscraper::Run()
+{
+        //start runloop
+
+        Simcore->Report("Running simulation...");
+
+        //start simulation with a timer-based runloop
+        p = new Pump();
+        p->s = Simcore;
+	p->app = this;
+        if (Simcore->FrameLimiter == true)
+		p->Start(1000 / Simcore->FrameRate);
+        else
+                p->Start(1);
+}
+
+void Skyscraper::Stop()
+{
+	//stop and delete timer
+        p->Stop();
+        p->s = 0;
+	p->app = 0;
+        delete p;
+        p = 0;
+}
+
