@@ -105,15 +105,17 @@ bool Skyscraper::OnInit(void)
 	Selector = 0;
 
 	//start simulation
-	Simcore->Start(this);
+	Simcore->Start();
 
 	//load dialogs
 	dpanel = new DebugPanel(NULL, -1);
 	dpanel->Show(true);
 	dpanel->SetPosition(wxPoint(10, 10));
+	dpanel->Update();
 
 	//run simulation
-	Simcore->Run();
+	//Simcore->Run();
+	Run();
 
 	return true;
 }
@@ -130,3 +132,20 @@ int Skyscraper::OnExit()
 
 	return 0;
 }
+
+void Skyscraper::Run()
+{
+	//start simulation with a timer-based runloop
+	Simcore->Report("Running simulation...");
+
+	Simcore->IsRunning = true;
+
+        p = new Pump();
+        p->s = Simcore;
+	p->app = this;
+        if (Simcore->FrameLimiter == true)
+                p->Start(1000 / Simcore->FrameRate);
+        else
+                p->Start(1);
+}
+

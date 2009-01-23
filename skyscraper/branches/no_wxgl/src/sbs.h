@@ -148,12 +148,13 @@ public:
 	//public functions
 	SBS();
 	~SBS();
+	void PushFrame();
 	void Report (const char* msg, ...);
 	bool ReportError (const char* msg, ...);
 	bool LoadTexture(const char *filename, const char *name, float widthmult, float heightmult);
 	float AutoSize(float n1, float n2, bool iswidth, float offset);
 	bool Initialize(int argc, const char* const argv[], const char *windowtitle);
-	void Start(wxApp *app);
+	void Start();
 	void Run();
 	int CreateSky(const char *filenamebase);
 	void AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b);
@@ -293,9 +294,6 @@ private:
 
 	//private functions
 	void PrintBanner();
-
-	//wx app object
-	wxApp *App;
 
 	//doorway data
 	bool wall1a, wall1b, wall2a, wall2b;
