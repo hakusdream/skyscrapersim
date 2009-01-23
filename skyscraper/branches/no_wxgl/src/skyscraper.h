@@ -25,7 +25,6 @@
 #ifndef _SKYSCRAPER_H
 #define _SKYSCRAPER_H
 
-#include "wx/timer.h"
 #include "sbs.h"
 
 int main (int argc, char* argv[]);
@@ -46,7 +45,7 @@ public:
 	csArray<csString> BuildingData;
 
 	//frame rate handler class
-        class Pump : public wxTimer
+	class Pump : public wxTimer
 	{
 	public:
 		SBS* s;
@@ -56,14 +55,14 @@ public:
 		{	
 			s->PushFrame();
 			#ifndef CS_PLATFORM_WIN32
-			        while (app->Pending())
-		                app->Dispatch();
+				while (app->Pending())
+					app->Dispatch();
 			#endif
 		}
 	};
 
-        //timer object
-        Pump* p;
+	//timer object
+	Pump* p;
 };
 
 DECLARE_APP(Skyscraper)

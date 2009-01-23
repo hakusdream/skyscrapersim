@@ -140,12 +140,12 @@ void Skyscraper::Run()
 
 	Simcore->IsRunning = true;
 
-        p = new Pump();
-        p->s = Simcore;
+	p = new Pump();
+	p->s = Simcore;
 	p->app = this;
-        if (Simcore->FrameLimiter == true)
-                p->Start(1000 / Simcore->FrameRate);
-        else
-                p->Start(1);
+	if (Simcore->FrameLimiter == true)
+		p->Start(1000 / Simcore->FrameRate);
+	else
+		p->Start(1);
 }
 

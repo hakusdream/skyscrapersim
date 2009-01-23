@@ -26,7 +26,6 @@
 #ifndef _SBS_H
 #define _SBS_H
 
-#include <wx/app.h>
 #include "floor.h"
 #include "elevator.h"
 #include "shaft.h"
