@@ -133,6 +133,8 @@ SBS::~SBS()
 {
 	//engine destructor
 
+	App = 0;
+
 	//delete camera object
 	delete camera;
 	camera = 0;
@@ -153,10 +155,12 @@ SBS::~SBS()
 	printer.Invalidate();
 }
 
-void SBS::Start()
+void SBS::Start(wxApp *app)
 {
 	//create skybox
 	CreateSky(SkyName);
+
+	App = app;
 
 	//Post-init startup code goes here, before the runloop
 	engine->Prepare();
@@ -228,7 +232,7 @@ void SBS::Run()
 	Report("Running simulation...");
 
 	//set running value
-        IsRunning = true;
+	IsRunning = true;
 
 	csDefaultRunLoop (object_reg);
 }
@@ -423,6 +427,11 @@ bool SBS::HandleEvent(iEvent& Event)
 {
 	if (IsRunning == false)
 		return false;
+
+	#ifndef CS_PLATFORM_WIN32
+		while (App->Pending())
+			App->Dispatch();
+	#endif
 
 	//Event handler
 	if (Event.Name == Frame)
@@ -2417,17 +2426,6 @@ int SBS::GetDrawWallsCount()
 		sides++;
 
 	return sides;
-}
-
-void SBS::PushFrame()
-{
-        if (!equeue)
-                return ;
-
-	if (vc)
-                vc->Advance();
-
-        equeue->Process();
 }
 
 csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, csVector3 start, csVector3 end)

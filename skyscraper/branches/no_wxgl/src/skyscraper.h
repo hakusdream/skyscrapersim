@@ -34,7 +34,6 @@ class Skyscraper : public wxApp
 public:
 	virtual bool OnInit(void);
 	virtual int OnExit(void);
-	void Run();
 
 	//file loader functions
 	int LoadBuilding(const char * filename);
@@ -43,26 +42,6 @@ public:
 	//File I/O
 	csString BuildingFile;
 	csArray<csString> BuildingData;
-
-	//frame rate handler class
-	class Pump : public wxTimer
-	{
-	public:
-		SBS* s;
-		wxApp* app;
-		Pump() { };
-		virtual void Notify()
-		{	
-			s->PushFrame();
-			#ifndef CS_PLATFORM_WIN32
-				while (app->Pending())
-					app->Dispatch();
-			#endif
-		}
-	};
-
-	//timer object
-	Pump* p;
 };
 
 DECLARE_APP(Skyscraper)
