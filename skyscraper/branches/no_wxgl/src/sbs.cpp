@@ -28,9 +28,6 @@
 	#define CS_NO_MALLOC_OVERRIDE
 #endif
 
-//#include <wx/wx.h>
-//#include <wx/variant.h>
-//#include <wx/app.h>
 #include "globals.h"
 #include "sbs.h"
 #include "unix.h"
@@ -136,13 +133,6 @@ SBS::~SBS()
 {
 	//engine destructor
 
-	//stop and delete timer
-	//p->Stop();
-	//p->s = 0;
-	//delete p;
-	//p = 0;
-	//App = 0;
-
 	//delete camera object
 	delete camera;
 	camera = 0;
@@ -161,10 +151,6 @@ SBS::~SBS()
 
 	//delete frame printer object
 	printer.Invalidate();
-
-	//delete wx canvas
-	//delete canvas;
-	//canvas = 0;
 }
 
 //void SBS::Start(wxApp *app)
@@ -172,8 +158,6 @@ void SBS::Start()
 {
 	//set running value
 	IsRunning = true;
-
-	//App = app;
 
 	//create skybox
 	CreateSky(SkyName);
@@ -241,20 +225,14 @@ void SBS::Start()
 
 }
 
-/*void SBS::Run()
+void SBS::Run()
 {
 	//start runloop
 
 	Report("Running simulation...");
 
-	//start simulation with a timer-based runloop
-	p = new Pump();
-	p->s = sbs;
-	if (FrameLimiter == true)
-		p->Start(1000 / FrameRate);
-	else
-		p->Start(1);
-}*/
+	csDefaultRunLoop (object_reg);
+}
 
 void SBS::Wait(long milliseconds)
 {
@@ -399,24 +377,6 @@ void SBS::SetupFrame()
 {
 	//Main simulator loop
 
-	//resize canvas if needed
-	/*if (canvas->GetSize().GetWidth() != canvas_width || canvas->GetSize().GetHeight() != canvas_height)
-	{
-		//update canvas size values
-		canvas_width = canvas->GetSize().GetWidth();
-		canvas_height = canvas->GetSize().GetHeight();
-
-		//resize viewport
-		view->SetAutoResize(false);
-		float oldfov = view->GetCamera()->GetFOVAngle();
-		wxwin->GetWindow()->SetSize(canvas->GetSize());
-		view->GetCamera()->SetFOVAngle(oldfov, canvas_width);
-		view->GetCamera()->SetPerspectiveCenter(canvas_width / 2, canvas_height / 2);
-		view->SetRectangle(0, 0, canvas_width, canvas_height);
-		g3d->SetDimensions(canvas_width, canvas_height);
-		view->ClearView();
-	}*/
-
 	//This makes sure all timer steps are the same size, in order to prevent the physics from changing
 	//depending on frame rate
 	float elapsed = remaining_delta + (vc->GetElapsedTicks() / 1000.0);
@@ -504,7 +464,6 @@ bool SBS::Initialize(int argc, const char* const argv[], const char *windowtitle
 
 	if (!csInitializer::RequestPlugins (object_reg,
 		CS_REQUEST_VFS,
-		//CS_REQUEST_PLUGIN("crystalspace.graphics2d.wxgl", iGraphics2D),
 		CS_REQUEST_OPENGL3D,
 		CS_REQUEST_ENGINE,
 		CS_REQUEST_FONTSERVER,
@@ -590,19 +549,15 @@ bool SBS::Initialize(int argc, const char* const argv[], const char *windowtitle
 	vfs->Mount("/root/signs/sans_cond_bold", root_dir + "data" + dir_char + "signs-sans_cond_bold.zip");
 
 	g2d = g3d->GetDriver2D();
-	g2d->AllowResize(true); //allow canvas resizing
+	//g2d->AllowResize(true); //allow canvas resizing
 
 	//set window title
 	iNativeWindow* nw = g2d->GetNativeWindow();
 	if (nw) nw->SetTitle(windowtitle);
 
-	/*wxwin = scfQueryInterface<iWxWindow> (g2d);
-	if(!wxwin) return ReportError("Canvas is no iWxWindow plugin!");
-	wxwin->SetParent(RenderObject);
-	canvas = RenderObject;
-	canvas_width = canvas->GetSize().GetWidth();
-	canvas_height = canvas->GetSize().GetHeight();
-	*/
+	//canvas_width = canvas->GetSize().GetWidth();
+	//canvas_height = canvas->GetSize().GetHeight();
+
 	//font = g2d->GetFontServer()->LoadFont(CSFONT_LARGE);
 
 	// Open the main system. This will open all the previously loaded plug-ins.
@@ -2476,10 +2431,6 @@ void SBS::PushFrame()
 		vc->Advance();
 
 	equeue->Process();
-//#ifndef CS_PLATFORM_WIN32
-	//while (App->Pending())
-	//	App->Dispatch();
-//#endif
 }
 
 csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, csVector3 start, csVector3 end)
@@ -2825,13 +2776,6 @@ int SBS::AddDoorwayWalls(csRef<iThingFactoryState> mesh, const char *texture, fl
 	}
 	return index;
 }
-
-/*
-void SBS::Stop()
-{
-	//stop timer
-	p->Stop();
-}*/
 
 void SBS::SetAutoSize(bool x, bool y)
 {

@@ -154,9 +154,8 @@ public:
 	bool LoadTexture(const char *filename, const char *name, float widthmult, float heightmult);
 	float AutoSize(float n1, float n2, bool iswidth, float offset);
 	bool Initialize(int argc, const char* const argv[], const char *windowtitle);
-	//void Start(wxApp *app);
 	void Start();
-	//void Run();
+	void Run();
 	int CreateSky(const char *filenamebase);
 	void AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b);
 	int AddWallMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th);
@@ -216,7 +215,6 @@ public:
 	float MetersToFeet(float meters); //converts meters to feet
 	float FeetToMeters(float feet); //converts feet to meters
 	int AddDoorwayWalls(csRef<iThingFactoryState> mesh, const char *texture, float tw, float th);
-	//void Stop();
 	void SetListenerLocation(csVector3 location);
 	void SetTextureOverride(const char *mainneg, const char *mainpos, const char *sideneg, const char *sidepos, const char *top, const char *bottom);
 	int AddWall(const char *meshname, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th);
@@ -296,9 +294,6 @@ private:
 
 	//private functions
 	void PrintBanner();
-
-	//wx app object
-	//wxApp *App;
 
 	//doorway data
 	bool wall1a, wall1b, wall2a, wall2b;
