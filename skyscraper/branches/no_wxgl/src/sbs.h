@@ -26,6 +26,7 @@
 #ifndef _SBS_H
 #define _SBS_H
 
+#include <wx/app.h>
 #include "floor.h"
 #include "elevator.h"
 #include "shaft.h"
@@ -147,14 +148,12 @@ public:
 	//public functions
 	SBS();
 	~SBS();
-	void PushFrame();
 	void Report (const char* msg, ...);
 	bool ReportError (const char* msg, ...);
-	void Wait(long Milliseconds);
 	bool LoadTexture(const char *filename, const char *name, float widthmult, float heightmult);
 	float AutoSize(float n1, float n2, bool iswidth, float offset);
 	bool Initialize(int argc, const char* const argv[], const char *windowtitle);
-	void Start();
+	void Start(wxApp *app);
 	void Run();
 	int CreateSky(const char *filenamebase);
 	void AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b);
@@ -294,6 +293,9 @@ private:
 
 	//private functions
 	void PrintBanner();
+
+	//wx app object
+	wxApp *App;
 
 	//doorway data
 	bool wall1a, wall1b, wall2a, wall2b;

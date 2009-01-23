@@ -133,6 +133,8 @@ SBS::~SBS()
 {
 	//engine destructor
 
+	App = 0;
+
 	//delete camera object
 	delete camera;
 	camera = 0;
@@ -153,11 +155,12 @@ SBS::~SBS()
 	printer.Invalidate();
 }
 
-//void SBS::Start(wxApp *app)
-void SBS::Start()
+void SBS::Start(wxApp *app)
 {
 	//set running value
 	IsRunning = true;
+
+	App = app;
 
 	//create skybox
 	CreateSky(SkyName);
@@ -232,11 +235,6 @@ void SBS::Run()
 	Report("Running simulation...");
 
 	csDefaultRunLoop (object_reg);
-}
-
-void SBS::Wait(long milliseconds)
-{
-
 }
 
 float SBS::AutoSize(float n1, float n2, bool iswidth, float offset)
@@ -427,6 +425,11 @@ void SBS::SetupFrame()
 
 bool SBS::HandleEvent(iEvent& Event)
 {
+	#ifndef CS_PLATFORM_WIN32
+		while (App->Pending())
+			App->Dispatch();
+	#endif
+
 	//Event handler
 	if (Event.Name == Frame)
 	{
@@ -2420,17 +2423,6 @@ int SBS::GetDrawWallsCount()
 		sides++;
 
 	return sides;
-}
-
-void SBS::PushFrame()
-{
-	if (!equeue)
-		return ;
-
-	if (vc)
-		vc->Advance();
-
-	equeue->Process();
 }
 
 csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, csVector3 start, csVector3 end)

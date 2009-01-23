@@ -42,30 +42,6 @@ public:
 	//File I/O
 	csString BuildingFile;
 	csArray<csString> BuildingData;
-
-	void Run();
-	void Stop();
-
-private:
-	//frame rate handler class
-	class Pump : public wxTimer
-	{
-		public:
-		SBS* s;
-		wxApp* app;
-		Pump() { };
-		virtual void Notify()
-		{
-			s->PushFrame();
-			#ifndef CS_PLATFORM_WIN32
-				while (app->Pending())
-				app->Dispatch();
-			#endif
-		}
-	};
-
-	//timer object
-	Pump* p;
 };
 
 DECLARE_APP(Skyscraper)

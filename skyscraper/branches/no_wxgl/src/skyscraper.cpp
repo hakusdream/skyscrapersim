@@ -40,10 +40,6 @@ DebugPanel *dpanel;
 
 #ifdef CS_PLATFORM_WIN32
 
-/*#ifndef SW_SHOWNORMAL
-	#define SW_SHOWNORMAL 1
-#endif
-*/
 int main (int argc, char* argv[])
 {
 	return WinMain (GetModuleHandle (0), 0, GetCommandLineA (), SW_SHOWNORMAL);
@@ -109,7 +105,7 @@ bool Skyscraper::OnInit(void)
 	Selector = 0;
 
 	//start simulation
-	Simcore->Start();
+	Simcore->Start(this);
 
 	//load dialogs
 	dpanel = new DebugPanel(NULL, -1);
@@ -117,7 +113,6 @@ bool Skyscraper::OnInit(void)
 	dpanel->SetPosition(wxPoint(10, 10));
 
 	//run simulation
-	//Run();
 	Simcore->Run();
 
 	return true;
@@ -127,7 +122,6 @@ int Skyscraper::OnExit()
 {
 	//clean up
 
-	//Stop();
 	dpanel->timer->Stop();
 	dpanel->Destroy();
 	delete Simcore;
@@ -136,30 +130,3 @@ int Skyscraper::OnExit()
 
 	return 0;
 }
-
-void Skyscraper::Run()
-{
-	//start runloop
-
-	Simcore->Report("Running simulation...");
-
-	//start simulation with a timer-based runloop
-	p = new Pump();
-	p->s = Simcore;
-	p->app = this;
-	if (Simcore->FrameLimiter == true)
-		p->Start(1000 / Simcore->FrameRate);
-	else
-		p->Start(1);
-}
-
-void Skyscraper::Stop()
-{
-	//stop and delete timer
-	p->Stop();
-	p->s = 0;
-	p->app = 0;
-	delete p;
-	p = 0;
-}
-
