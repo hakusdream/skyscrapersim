@@ -34,6 +34,7 @@ class Skyscraper : public wxApp
 public:
 	virtual bool OnInit(void);
 	virtual int OnExit(void);
+	virtual int RunLoop(){return 0;}; //kill the WX runloop
 
 	//file loader functions
 	int LoadBuilding(const char * filename);
