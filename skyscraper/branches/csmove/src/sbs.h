@@ -31,7 +31,6 @@
 #include "sound.h"
 
 //global functions
-SBSIMPEXP void Cleanup();
 
 struct SBSIMPEXP FloorMap
 {
@@ -67,14 +66,12 @@ public:
 	csRef<iLoader> loader;
 	csRef<iVirtualClock> vc;
 	csRef<iView> view;
-	csRef<iLight> light;
 	csRef<iVFS> vfs;
 	csRef<iCollideSystem> collision_sys;
 	csRef<iReporter> rep;
 	csRef<iSndSysRenderer> sndrenderer;
 	csRef<iSndSysLoader> sndloader;
 	csRef<iMaterialWrapper> material;
-	csRef<iLightList> ll;
 	csRef<iSector> area;
 
 	csTicks elapsed_time, current_time;
@@ -132,7 +129,9 @@ public:
 	bool ReportError (const char* msg, ...);
 	bool LoadTexture(const char *filename, const char *name, float widthmult, float heightmult);
 	float AutoSize(float n1, float n2, bool iswidth, float offset);
-	void Initialize();
+	void Initialize(iSCF* scf, iEngine* engineref, iLoader* loaderref, iVirtualClock* vcref, iView* viewref, iVFS* vfsref,
+					iCollideSystem* collideref, iReporter* reporterref, iSndSysRenderer* sndrenderref, iSndSysLoader* sndloaderref,
+					iMaterialWrapper* matref, iSector* sectorref, const char* rootdirectory, const char* directory_char);
 	void Start();
 	int CreateSky(const char *filenamebase);
 	void AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b);

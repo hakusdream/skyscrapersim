@@ -37,7 +37,6 @@ public:
 	csRef<iKeyboardDriver> kbd;
 	csRef<iVirtualClock> vc;
 	csRef<iView> view;
-	csRef<iLight> light;
 	csRef<iConsoleOutput> console;
 	csRef<iFont> font;
 	csRef<iVFS> vfs;
@@ -57,7 +56,6 @@ public:
 	csRef<iSndSysLoader> sndloader;
 
 	csRef<iMaterialWrapper> material;
-	csRef<iLightList> ll;
 	csRef<iSector> area;
 
 	bool RenderOnly; //skip sim processing and only render graphics

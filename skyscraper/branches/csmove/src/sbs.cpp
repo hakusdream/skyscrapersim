@@ -35,7 +35,7 @@
 #include "unix.h"
 
 #ifdef _WIN32
-	CS_IMPLEMENT_APPLICATION
+	CS_IMPLEMENT_FOREIGN_DLL
 #endif
 
 SBS *sbs; //self reference
@@ -146,13 +146,13 @@ SBS::~SBS()
 
 	//delete stairs
 	StairsArray.DeleteAll();
+
+	//clear self reference
+	sbs = 0;
 }
 
 void SBS::Start()
 {
-	//create skybox
-	CreateSky(SkyName);
-
 	//Post-init startup code goes here, before the runloop
 
 	//initialize mesh colliders
@@ -307,8 +307,28 @@ void SBS::CalculateFrameRate()
 	}
 }
 
-void SBS::Initialize()
+void SBS::Initialize(iSCF* scf, iEngine* engineref, iLoader* loaderref, iVirtualClock* vcref, iView* viewref, iVFS* vfsref,
+					 iCollideSystem* collideref, iReporter* reporterref, iSndSysRenderer* sndrenderref, iSndSysLoader* sndloaderref,
+					 iMaterialWrapper* matref, iSector* sectorref, const char* rootdirectory, const char* directory_char)
 {
+	//initialize CS references
+#ifdef _WIN32
+	iSCF::SCF = scf;
+#endif
+	engine = engineref;
+	loader = loaderref;
+	vc = vcref;
+	view = viewref;
+	vfs = vfsref;
+	collision_sys = collideref;
+	rep = reporterref;
+	sndrenderer = sndrenderref;
+	sndloader = sndloaderref;
+	material = matref;
+	area = sectorref;
+	root_dir = rootdirectory;
+	dir_char = directory_char;
+
 	//mount sign texture packs
 	vfs->Mount("/root/signs/sans", root_dir + "data" + dir_char + "signs-sans.zip");
 	vfs->Mount("/root/signs/sans_bold", root_dir + "data" + dir_char + "signs-sans_bold.zip");
@@ -346,16 +366,9 @@ bool SBS::LoadTexture(const char *filename, const char *name, float widthmult, f
 
 void SBS::AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b)
 {
-	ll = area->GetLights();
-	light = engine->CreateLight(name, csVector3(x, y, z), radius, csColor(r, g, b));
+	csRef<iLightList> ll = area->GetLights();
+	csRef<iLight> light = engine->CreateLight(name, csVector3(x, y, z), radius, csColor(r, g, b));
 	ll->Add(light);
-}
-
-void Cleanup()
-{
-	//cleanup
-	csPrintf ("Cleaning up...\n");
-	sbs = 0;
 }
 
 int SBS::AddWallMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th)

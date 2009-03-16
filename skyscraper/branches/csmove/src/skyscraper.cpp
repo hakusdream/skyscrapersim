@@ -89,7 +89,7 @@ bool Skyscraper::OnInit(void)
 	#endif
 	{
 		Simcore->ReportError("Error initializing system!");
-		Cleanup();
+		skyscraper = 0;
 		csInitializer::DestroyApplication (object_reg);
 		exit(1);
 	}
@@ -120,25 +120,8 @@ bool Skyscraper::OnInit(void)
 	BuildingFile = Selector->GetFilename();
 	#endif
 
-	//set CS objects for SBS
-	Simcore->engine = engine;
-	Simcore->loader = loader;
-	Simcore->vc = vc;
-	Simcore->view = view;
-	Simcore->light = light;
-	Simcore->vfs = vfs;
-	Simcore->collision_sys = collision_sys;
-	Simcore->rep = rep;
-	Simcore->sndrenderer = sndrenderer;
-	Simcore->sndloader = sndloader;
-	Simcore->material = material;
-	Simcore->ll = ll;
-	Simcore->area = area;
-	Simcore->root_dir = root_dir;
-	Simcore->dir_char = dir_char;
-
 	//initialize SBS
-	Simcore->Initialize();
+	Simcore->Initialize(iSCF::SCF, engine, loader, vc, view, vfs, collision_sys, rep, sndrenderer, sndloader, material, area, root_dir.GetData(), dir_char.GetData());
 
 	//load building data file
 	Simcore->Report("\nLoading building data from " + BuildingFile + "...\n");
@@ -153,6 +136,9 @@ bool Skyscraper::OnInit(void)
 	//delete dialog
 	delete Selector;
 	Selector = 0;
+
+	//the sky needs to be created before Prepare() is called
+	Simcore->CreateSky(Simcore->SkyName);
 
 	engine->Prepare();
 
@@ -193,7 +179,37 @@ int Skyscraper::OnExit()
 	Simcore = 0;
 	delete window;
 	window = 0;
-	Cleanup();
+	skyscraper = 0;
+
+	//cleanup
+	csPrintf ("Cleaning up...\n");
+
+	//clear references
+	wxwin = 0;
+	area = 0;
+	engine = 0;
+	loader = 0;
+	g3d = 0;
+	g2d = 0;
+	kbd = 0;
+	vc = 0;
+	view = 0;
+	console = 0;
+	font = 0;
+	vfs = 0;
+	imageio = 0;
+	cmdline = 0;
+	strings = 0;
+	stdrep = 0;
+	equeue = 0;
+	plug = 0;
+	collision_sys = 0;
+	mouse = 0;
+	rep = 0;
+	sndrenderer = 0;
+	sndloader = 0;
+	material = 0;
+
 	csInitializer::DestroyApplication (object_reg);
 
 	return 0;
