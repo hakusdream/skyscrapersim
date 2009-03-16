@@ -72,6 +72,7 @@ bool Skyscraper::OnInit(void)
 	InputOnly = false;
 	canvas_width = 0;
 	canvas_height = 0;
+	IsRunning = false;
 
 	//Create main window
 	window = new MainScreen();
@@ -157,6 +158,7 @@ bool Skyscraper::OnInit(void)
 	//run simulation
 	Simcore->Report("Running simulation...");
 	Simcore->IsRunning = true;
+	IsRunning = true;
 
 	return true;
 }
@@ -258,7 +260,8 @@ void MainScreen::ShowWindow()
 
 void MainScreen::OnIdle(wxIdleEvent& event)
 {
-	skyscraper->PushFrame();
+	if (skyscraper->IsRunning == true)
+		skyscraper->PushFrame();
 	event.RequestMore();
 }
 

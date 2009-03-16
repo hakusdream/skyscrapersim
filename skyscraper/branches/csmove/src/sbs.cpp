@@ -244,7 +244,7 @@ void SBS::PrintBanner()
 	csPrintf(" Copyright (C)2004-2009 Ryan Thoryk\n");
 	csPrintf(" This software comes with ABSOLUTELY NO WARRANTY. This is free\n");
 	csPrintf(" software, and you are welcome to redistribute it under certain\n");
-	csPrintf(" conditions. For details, see the file gpl.txt\n");
+	csPrintf(" conditions. For details, see the file gpl.txt\n\n");
 }
 
 void SBS::MainLoop()
