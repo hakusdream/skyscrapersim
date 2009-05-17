@@ -62,7 +62,7 @@ bool Skyscraper::LoadBuilding(const char *filename)
 	int RangeL = 0;
 	int RangeH = 0;
 	long RangeStart = 0;
-	csRef<iThingFactoryState> tmpMesh;
+	csRef<iMaterialWrapper> tmpMesh;
 	char intbuffer[65];
 	csString buffer;
 	int startpos = 0;

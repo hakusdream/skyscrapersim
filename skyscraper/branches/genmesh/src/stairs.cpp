@@ -60,10 +60,10 @@ Stairs::Stairs(int number, float CenterX, float CenterZ, int _startfloor, int _e
 		buffer = "Stairwell " + buffer2 + ":" + buffer3;
 		buffer.Trim();
 		csRef<iMeshWrapper> tmpmesh;
-		csRef<iThingFactoryState> tmpstate;
+		csRef<iGeneralFactoryState> tmpstate;
 		tmpmesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
 		StairArray[i - startfloor] = tmpmesh;
-		tmpstate = scfQueryInterface<iThingFactoryState> (StairArray[i - startfloor]->GetMeshObject()->GetFactory());
+		tmpstate = scfQueryInterface<iGeneralFactoryState> (StairArray[i - startfloor]->GetMeshObject()->GetFactory());
 		StairArray_state[i - startfloor] = tmpstate;
 		StairArray[i - startfloor]->SetZBufMode(CS_ZBUF_USE);
 		StairArray[i - startfloor]->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());

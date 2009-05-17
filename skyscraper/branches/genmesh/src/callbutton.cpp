@@ -50,8 +50,8 @@ CallButton::CallButton(csArray<int> &elevators, int floornum, int number, const 
 	buffer = "Call Button " + buffer2 + ":" + buffer3;
 	buffer.Trim();
 	CallButtonMesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	CallButton_back_state = scfQueryInterface<iThingFactoryState> (CallButtonBackMesh->GetMeshObject()->GetFactory());
-	CallButton_state = scfQueryInterface<iThingFactoryState> (CallButtonMesh->GetMeshObject()->GetFactory());
+	CallButton_back_state = scfQueryInterface<iGeneralFactoryState> (CallButtonBackMesh->GetMeshObject()->GetFactory());
+	CallButton_state = scfQueryInterface<iGeneralFactoryState> (CallButtonMesh->GetMeshObject()->GetFactory());
 	CallButtonBackMesh->SetZBufMode(CS_ZBUF_USE);
 	CallButtonBackMesh->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
 	CallButtonBackMesh->GetMeshObject()->SetMixMode(CS_FX_ALPHA);

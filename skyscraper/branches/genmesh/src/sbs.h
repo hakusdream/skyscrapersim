@@ -140,17 +140,17 @@ public:
 	bool Start();
 	int CreateSky(const char *filenamebase);
 	void AddLight(const char *name, float x, float y, float z, float radius, float r, float g, float b);
-	int AddWallMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th);
-	int AddFloorMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float altitude1, float altitude2, float tw, float th);
-	void DeleteWall(csRef<iThingFactoryState> dest, int index);
-	void DeleteFloor(csRef<iThingFactoryState> dest, int index);
+	int AddWallMain(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th);
+	int AddFloorMain(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float altitude1, float altitude2, float tw, float th);
+	void DeleteWall(csRef<iMaterialWrapper> dest, int index);
+	void DeleteFloor(csRef<iMaterialWrapper> dest, int index);
 	void CalculateFrameRate();
 	void MainLoop();
-	int CreateWallBox(csRef<iThingFactoryState> dest, const char *name, const char *texture, float x1, float x2, float z1, float z2, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom);
-	int CreateWallBox2(csRef<iThingFactoryState> dest, const char *name, const char *texture, float CenterX, float CenterZ, float WidthX, float LengthZ, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom);
-	int AddTriangleWall(csRef<iThingFactoryState> dest, const char *name, const char *texture, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float tw, float th);
-	int AddCustomWall(csRef<iThingFactoryState> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th);
-	int AddCustomFloor(csRef<iThingFactoryState> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th);
+	int CreateWallBox(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float x1, float x2, float z1, float z2, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom);
+	int CreateWallBox2(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float CenterX, float CenterZ, float WidthX, float LengthZ, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom);
+	int AddTriangleWall(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float tw, float th);
+	int AddCustomWall(csRef<iMaterialWrapper> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th);
+	int AddCustomFloor(csRef<iMaterialWrapper> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th);
 	csVector2 GetExtents(csPoly3D &varray, int coord);
 	void InitMeshes();
 	void EnableBuildings(bool value);
@@ -159,11 +159,11 @@ public:
 	void EnableSkybox(bool value);
 	int GetFloorNumber(float altitude, int lastfloor = 0, bool checklastfloor = false);
 	float GetDistance(float x1, float x2, float z1, float z2);
-	void DumpVertices(csRef<iThingFactoryState> mesh);
+	void DumpVertices(csRef<iMaterialWrapper> mesh);
 	void ListAltitudes();
 	void CreateShaft(int number, int type, float CenterX, float CenterZ, int _startfloor, int _endfloor);
 	void CreateStairwell(int number, float CenterX, float CenterZ, int _startfloor, int _endfloor);
-	void SetTexture(csRef<iThingFactoryState> mesh, int index, const char *texture, bool has_thickness, float tw, float th);
+	void SetTexture(csRef<iMaterialWrapper> mesh, int index, const char *texture, bool has_thickness, float tw, float th);
 	iMaterialWrapper* ChangeTexture(iMeshWrapper *mesh, csRef<iMaterialWrapper> oldmat, const char *texture, bool matcheck = true);
 	iMaterialWrapper* GetTextureMaterial(const char *texture, bool &result, const char *polygon_name = 0);
 	bool NewElevator(int number);
@@ -189,11 +189,11 @@ public:
 	void SetAutoSize(bool x, bool y);
 	csVector2 GetAutoSize();
 	int GetDrawWallsCount();
-	csVector3 GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, const csVector3 &start, const csVector3 &end);
-	void Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csVector3 &end, bool cutwalls, bool cutfloors, const csVector3 &mesh_origin, const csVector3 &object_origin, int checkwallnumber = 0, const char *checkstring = "");
+	csVector3 GetPoint(csRef<iMaterialWrapper> mesh, const char *polyname, const csVector3 &start, const csVector3 &end);
+	void Cut(csRef<iMaterialWrapper> mesh, const csVector3 &start, const csVector3 &end, bool cutwalls, bool cutfloors, const csVector3 &mesh_origin, const csVector3 &object_origin, int checkwallnumber = 0, const char *checkstring = "");
 	float MetersToFeet(float meters); //converts meters to feet
 	float FeetToMeters(float feet); //converts feet to meters
-	int AddDoorwayWalls(csRef<iThingFactoryState> mesh, const char *texture, float tw, float th);
+	int AddDoorwayWalls(csRef<iMaterialWrapper> mesh, const char *texture, float tw, float th);
 	void SetListenerLocation(const csVector3 &location);
 	void SetListenerDirection(const csVector3 &front, const csVector3 &top);
 	void SetListenerDistanceFactor(float factor);
@@ -215,16 +215,16 @@ public:
 
 	//Meshes
 	csRef<iMeshWrapper> Buildings; //building mesh
-		csRef<iThingFactoryState> Buildings_state;
+		csRef<iGeneralFactoryState> Buildings_state;
 
 	csRef<iMeshWrapper> External; //external mesh
-		csRef<iThingFactoryState> External_state;
+		csRef<iGeneralFactoryState> External_state;
 
 	csRef<iMeshWrapper> Landscape; //landscape mesh
-		csRef<iThingFactoryState> Landscape_state;
+		csRef<iGeneralFactoryState> Landscape_state;
 
 	csRef<iMeshWrapper> SkyBox; //skybox mesh
-		csRef<iThingFactoryState> SkyBox_state;
+		csRef<iGeneralFactoryState> SkyBox_state;
 
 private:
 

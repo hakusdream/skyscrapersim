@@ -34,13 +34,13 @@ class SBSIMPEXP Floor
 public:
 
 	csRef<iMeshWrapper> Level; //level mesh
-	csRef<iThingFactoryState> Level_state;
+	csRef<iGeneralFactoryState> Level_state;
 
 	csRef<iMeshWrapper> Interfloor; //interfloor mesh
-	csRef<iThingFactoryState> Interfloor_state;
+	csRef<iGeneralFactoryState> Interfloor_state;
 
 	csRef<iMeshWrapper> ColumnFrame; //columnframe mesh
-	csRef<iThingFactoryState> ColumnFrame_state;
+	csRef<iGeneralFactoryState> ColumnFrame_state;
 
 	int Number; //floor number
 	csString Name; //floor name

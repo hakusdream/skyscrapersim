@@ -43,7 +43,7 @@ Floor::Floor(int number)
 	buffer.Insert(0, "Level ");
 	buffer.Trim();
 	Level = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	Level_state = scfQueryInterface<iThingFactoryState> (Level->GetMeshObject()->GetFactory());
+	Level_state = scfQueryInterface<iGeneralFactoryState> (Level->GetMeshObject()->GetFactory());
 	Level->SetZBufMode(CS_ZBUF_USE);
 	Level->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
 	Level->GetMeshObject()->SetMixMode(CS_FX_ALPHA);
@@ -53,7 +53,7 @@ Floor::Floor(int number)
 	buffer.Insert(0, "Interfloor ");
 	buffer.Trim();
 	Interfloor = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	Interfloor_state = scfQueryInterface<iThingFactoryState> (Interfloor->GetMeshObject()->GetFactory());
+	Interfloor_state = scfQueryInterface<iGeneralFactoryState> (Interfloor->GetMeshObject()->GetFactory());
 	Interfloor->SetZBufMode(CS_ZBUF_USE);
 	Interfloor->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
 	Interfloor->GetMeshObject()->SetMixMode(CS_FX_ALPHA);
@@ -63,7 +63,7 @@ Floor::Floor(int number)
 	buffer.Insert(0, "ColumnFrame ");
 	buffer.Trim();
 	ColumnFrame = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	ColumnFrame_state = scfQueryInterface<iThingFactoryState> (ColumnFrame->GetMeshObject()->GetFactory());
+	ColumnFrame_state = scfQueryInterface<iGeneralFactoryState> (ColumnFrame->GetMeshObject()->GetFactory());
 	ColumnFrame->SetZBufMode(CS_ZBUF_USE);
 
 	//set enabled flag

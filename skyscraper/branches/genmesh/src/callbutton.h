@@ -46,8 +46,8 @@ public:
 private:
 	csRef<iMeshWrapper> CallButtonBackMesh; //call button mesh object
 	csRef<iMeshWrapper> CallButtonMesh; //call button mesh object
-	csRef<iThingFactoryState> CallButton_back_state;
-	csRef<iThingFactoryState> CallButton_state;
+	csRef<iGeneralFactoryState> CallButton_back_state;
+	csRef<iGeneralFactoryState> CallButton_state;
 };
 
 #endif

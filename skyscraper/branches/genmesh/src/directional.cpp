@@ -55,8 +55,8 @@ DirectionalIndicator::DirectionalIndicator(int elevator, int floor, const char *
 	buffer = "Directional Indicator " + buffer2 + ":" + buffer3 + ":Lights";
 	buffer.Trim();
 	DirectionalMeshLights = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	Directional_back_state = scfQueryInterface<iThingFactoryState> (DirectionalMeshBack->GetMeshObject()->GetFactory());
-	Directional_lights_state = scfQueryInterface<iThingFactoryState> (DirectionalMeshLights->GetMeshObject()->GetFactory());
+	Directional_back_state = scfQueryInterface<iGeneralFactoryState> (DirectionalMeshBack->GetMeshObject()->GetFactory());
+	Directional_lights_state = scfQueryInterface<iGeneralFactoryState> (DirectionalMeshLights->GetMeshObject()->GetFactory());
 	DirectionalMeshBack->SetZBufMode(CS_ZBUF_USE);
 	DirectionalMeshBack->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
 	DirectionalMeshBack->GetMeshObject()->SetMixMode(CS_FX_ALPHA);

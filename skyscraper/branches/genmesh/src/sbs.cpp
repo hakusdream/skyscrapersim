@@ -464,7 +464,7 @@ void SBS::AddLight(const char *name, float x, float y, float z, float radius, fl
 	ll->Add(light);
 }
 
-int SBS::AddWallMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th)
+int SBS::AddWallMain(csRef<iMaterialWrapper> mesh, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float height_in1, float height_in2, float altitude1, float altitude2, float tw, float th)
 {
 	//determine axis of wall
 	int axis = 0;
@@ -722,7 +722,7 @@ int SBS::AddWallMain(csRef<iThingFactoryState> dest, const char *name, const cha
 	return index;
 }
 
-int SBS::AddFloorMain(csRef<iThingFactoryState> dest, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float altitude1, float altitude2, float tw, float th)
+int SBS::AddFloorMain(csRef<iMaterialWrapper> mesh, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float altitude1, float altitude2, float tw, float th)
 {
 	//Adds a floor with the specified dimensions and vertical offset
 
@@ -908,7 +908,7 @@ int SBS::AddFloorMain(csRef<iThingFactoryState> dest, const char *name, const ch
 	return index;
 }
 
-void SBS::DeleteWall(csRef<iThingFactoryState> dest, int index)
+void SBS::DeleteWall(csRef<iMaterialWrapper> mesh, int index)
 {
 	//delete wall polygons (front and back) from specified mesh
 	dest->RemovePolygon(index);
@@ -916,7 +916,7 @@ void SBS::DeleteWall(csRef<iThingFactoryState> dest, int index)
 }
 
 
-void SBS::DeleteFloor(csRef<iThingFactoryState> dest, int index)
+void SBS::DeleteFloor(csRef<iMaterialWrapper> mesh, int index)
 {
 	//delete floor polygons (front and back) from specified mesh
 	dest->RemovePolygon(index);
@@ -954,7 +954,7 @@ bool SBS::ReportError (const char* msg, ...)
 	return false;
 }
 
-int SBS::CreateWallBox(csRef<iThingFactoryState> dest, const char *name, const char *texture, float x1, float x2, float z1, float z2, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom)
+int SBS::CreateWallBox(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float x1, float x2, float z1, float z2, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom)
 {
 	//create 4 walls
 
@@ -1084,7 +1084,7 @@ int SBS::CreateWallBox(csRef<iThingFactoryState> dest, const char *name, const c
 	return firstidx;
 }
 
-int SBS::CreateWallBox2(csRef<iThingFactoryState> dest, const char *name, const char *texture, float CenterX, float CenterZ, float WidthX, float LengthZ, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom)
+int SBS::CreateWallBox2(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float CenterX, float CenterZ, float WidthX, float LengthZ, float height_in, float voffset, float tw, float th, bool inside, bool outside, bool top, bool bottom)
 {
 	//create 4 walls from a central point
 
@@ -1105,23 +1105,23 @@ void SBS::InitMeshes()
 {
 	//create object meshes
 	Buildings = engine->CreateSectorWallsMesh (area, "Buildings");
-	Buildings_state = scfQueryInterface<iThingFactoryState> (Buildings->GetMeshObject()->GetFactory());
+	Buildings_state = scfQueryInterface<iGeneralFactoryState> (Buildings->GetMeshObject()->GetFactory());
 	Buildings->SetZBufMode(CS_ZBUF_USE);
 	Buildings->SetRenderPriority(sbs->engine->GetSkyRenderPriority());
 
 	External = engine->CreateSectorWallsMesh (area, "External");
-	External_state = scfQueryInterface<iThingFactoryState> (External->GetMeshObject()->GetFactory());
+	External_state = scfQueryInterface<iGeneralFactoryState> (External->GetMeshObject()->GetFactory());
 	External->SetZBufMode(CS_ZBUF_USE);
 	//External->SetRenderPriority(engine->GetAlphaRenderPriority());
 	//External->GetMeshObject()->SetMixMode(CS_FX_ALPHA);
 
 	Landscape = engine->CreateSectorWallsMesh (area, "Landscape");
-	Landscape_state = scfQueryInterface<iThingFactoryState> (Landscape->GetMeshObject()->GetFactory());
+	Landscape_state = scfQueryInterface<iGeneralFactoryState> (Landscape->GetMeshObject()->GetFactory());
 	Landscape->SetZBufMode(CS_ZBUF_USE);
 	Landscape->SetRenderPriority(sbs->engine->GetSkyRenderPriority());
 }
 
-int SBS::AddCustomWall(csRef<iThingFactoryState> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th)
+int SBS::AddCustomWall(csRef<iMaterialWrapper> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th)
 {
 	//Adds a wall from a specified array of 3D vectors
 	float tw2 = tw;
@@ -1241,7 +1241,7 @@ int SBS::AddCustomWall(csRef<iThingFactoryState> dest, const char *name, const c
 	return firstidx;
 }
 
-int SBS::AddCustomFloor(csRef<iThingFactoryState> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th)
+int SBS::AddCustomFloor(csRef<iMaterialWrapper> dest, const char *name, const char *texture, csPoly3D &varray, float tw, float th)
 {
 	//Adds a wall from a specified array of 3D vectors
 	float tw2 = tw;
@@ -1360,7 +1360,7 @@ int SBS::AddCustomFloor(csRef<iThingFactoryState> dest, const char *name, const 
 	return firstidx;
 }
 
-int SBS::AddTriangleWall(csRef<iThingFactoryState> dest, const char *name, const char *texture, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float tw, float th)
+int SBS::AddTriangleWall(csRef<iMaterialWrapper> dest, const char *name, const char *texture, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float tw, float th)
 {
 	//Adds a triangular wall with the specified dimensions
 	csPoly3D varray;
@@ -1461,7 +1461,7 @@ int SBS::CreateSky(const char *filenamebase)
 	LoadTexture("/root/sky/back.jpg", "SkyBack", 1, 1);
 
 	SkyBox = (engine->CreateSectorWallsMesh (area, "SkyBox"));
-	SkyBox_state = scfQueryInterface<iThingFactoryState> (SkyBox->GetMeshObject()->GetFactory());
+	SkyBox_state = scfQueryInterface<iGeneralFactoryState> (SkyBox->GetMeshObject()->GetFactory());
 	SkyBox->SetZBufMode(CS_ZBUF_USE);
 	SkyBox->SetRenderPriority(sbs->engine->GetSkyRenderPriority());
 
@@ -1558,7 +1558,7 @@ float SBS::GetDistance(float x1, float x2, float z1, float z2)
 	return 0;
 }
 
-void SBS::DumpVertices(csRef<iThingFactoryState> mesh)
+void SBS::DumpVertices(csRef<iMaterialWrapper> mesh)
 {
 	//dumps a list of vertices from a mesh object to the console/logfile
 
@@ -1633,7 +1633,7 @@ iMaterialWrapper* SBS::ChangeTexture(iMeshWrapper *mesh, csRef<iMaterialWrapper>
 	return 0;
 }
 
-void SBS::SetTexture(csRef<iThingFactoryState> mesh, int index, const char *texture, bool has_thickness, float tw, float th)
+void SBS::SetTexture(csRef<iMaterialWrapper> mesh, int index, const char *texture, bool has_thickness, float tw, float th)
 {
 	//sets texture for a range of polygons
 
@@ -1992,7 +1992,7 @@ int SBS::GetDrawWallsCount()
 	return sides;
 }
 
-csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, const csVector3 &start, const csVector3 &end)
+csVector3 SBS::GetPoint(csRef<iMaterialWrapper> mesh, const char *polyname, const csVector3 &start, const csVector3 &end)
 {
 	//do a line intersection with a specified mesh, and return
 	//the intersection point
@@ -2007,7 +2007,7 @@ csVector3 SBS::GetPoint(csRef<iThingFactoryState> mesh, const char *polyname, co
 	return isect;
 }
 
-void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csVector3 &end, bool cutwalls, bool cutfloors, const csVector3 &mesh_origin, const csVector3 &object_origin, int checkwallnumber, const char *checkstring)
+void SBS::Cut(csRef<iMaterialWrapper> mesh, const csVector3 &start, const csVector3 &end, bool cutwalls, bool cutfloors, const csVector3 &mesh_origin, const csVector3 &object_origin, int checkwallnumber, const char *checkstring)
 {
 	//cuts a rectangular hole in the polygons within the specified range
 	//mesh_origin is a modifier for meshes with relative polygon coordinates (used only for calculating door positions) - in this you specify the mesh's global position
@@ -2034,7 +2034,7 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 	}
 
 	//step through each polygon
-	polycount = state->GetPolygonCount();
+	polycount = mesh->GetPolygonCount();
 	for (int i = 0; i < polycount; i++)
 	{
 		temppoly.MakeEmpty();
@@ -2050,9 +2050,9 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 		polycheck = false;
 
 		//copy source polygon vertices
-		csString name = state->GetPolygonName(i);
-		for (int j = 0; j < state->GetPolygonVertexCount(i); j++)
-			temppoly.AddVertex(state->GetPolygonVertex(i, j));
+		csString name = mesh->GetPolygonName(i);
+		for (int j = 0; j < mesh->GetPolygonVertexCount(i); j++)
+			temppoly.AddVertex(mesh->GetPolygonVertex(i, j));
 
 		//make sure the polygon is not outside the cut area
 		if (temppoly.ClassifyX(start.x) != CS_POL_FRONT &&
@@ -2235,13 +2235,13 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 			if (polycheck == true)
 			{
 				//get texture data from original polygon
-				iMaterialWrapper *oldmat = state->GetPolygonMaterial(i);
+				iMaterialWrapper *oldmat = mesh->GetPolygonMaterial(i);
 				csVector3 oldvector;
 				csMatrix3 mapping;
-				state->GetPolygonTextureMapping(i, mapping, oldvector);
+				mesh->GetPolygonTextureMapping(i, mapping, oldvector);
 
 				//delete original polygon
-				state->RemovePolygon(i);
+				mesh->RemovePolygon(i);
 				i--;
 				polycount--;
 
@@ -2249,8 +2249,8 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 				if (temppoly.GetVertexCount() > 2)
 				{
 					addpolys++;
-					tmpindex_tmp = state->AddPolygon(temppoly.GetVertices(), temppoly.GetVertexCount());
-					state->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
+					tmpindex_tmp = mesh->AddPolygon(temppoly.GetVertices(), temppoly.GetVertexCount());
+					mesh->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
 					if (tmpindex == -1)
 						tmpindex = tmpindex_tmp;
 				}
@@ -2258,8 +2258,8 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 				if (temppoly2.GetVertexCount() > 2)
 				{
 					addpolys++;
-					tmpindex_tmp = state->AddPolygon(temppoly2.GetVertices(), temppoly2.GetVertexCount());
-					state->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
+					tmpindex_tmp = mesh->AddPolygon(temppoly2.GetVertices(), temppoly2.GetVertexCount());
+					mesh->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
 					if (tmpindex == -1)
 						tmpindex = tmpindex_tmp;
 				}
@@ -2267,8 +2267,8 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 				if (temppoly3.GetVertexCount() > 2)
 				{
 					addpolys++;
-					tmpindex_tmp = state->AddPolygon(temppoly3.GetVertices(), temppoly3.GetVertexCount());
-					state->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
+					tmpindex_tmp = mesh->AddPolygon(temppoly3.GetVertices(), temppoly3.GetVertexCount());
+					mesh->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
 					if (tmpindex == -1)
 						tmpindex = tmpindex_tmp;
 				}
@@ -2276,8 +2276,8 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 				if (temppoly4.GetVertexCount() > 2)
 				{
 					addpolys++;
-					tmpindex_tmp = state->AddPolygon(temppoly4.GetVertices(), temppoly4.GetVertexCount());
-					state->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
+					tmpindex_tmp = mesh->AddPolygon(temppoly4.GetVertices(), temppoly4.GetVertexCount());
+					mesh->SetPolygonName(csPolygonRange(tmpindex_tmp, tmpindex_tmp), name);
 					if (tmpindex == -1)
 						tmpindex = tmpindex_tmp;
 				}
@@ -2286,8 +2286,8 @@ void SBS::Cut(csRef<iThingFactoryState> state, const csVector3 &start, const csV
 				//apply material to new polygon set
 				if (addpolys > 0)
 				{
-					state->SetPolygonMaterial(csPolygonRange(tmpindex, tmpindex + addpolys - 1), oldmat);
-					state->SetPolygonTextureMapping(csPolygonRange(tmpindex, tmpindex + addpolys - 1), mapping, oldvector);
+					mesh->SetPolygonMaterial(csPolygonRange(tmpindex, tmpindex + addpolys - 1), oldmat);
+					mesh->SetPolygonTextureMapping(csPolygonRange(tmpindex, tmpindex + addpolys - 1), mapping, oldvector);
 				}
 			}
 		}
@@ -2306,7 +2306,7 @@ float SBS::FeetToMeters(float feet)
 	return feet / 3.2808399f;
 }
 
-int SBS::AddDoorwayWalls(csRef<iThingFactoryState> mesh, const char *texture, float tw, float th)
+int SBS::AddDoorwayWalls(csRef<iMaterialWrapper> mesh, const char *texture, float tw, float th)
 {
 	//add joining doorway polygons if needed
 	int index = 0;
@@ -2466,15 +2466,15 @@ int SBS::AddWall(const char *meshname, const char *name, const char *texture, fl
 	}
 	th2 = AutoSize(0, height_in1, false, th);
 
-	csRef<iThingFactoryState> tmpstate;
+	csRef<iMaterialWrapper> tmpmesh;
 	if (mesh.CompareNoCase("external") == true)
-		tmpstate = External_state;
+		tmpmesh = External;
 	if (mesh.CompareNoCase("buildings") == true)
-		tmpstate = Buildings_state;
+		tmpmesh = Buildings;
 	if (mesh.CompareNoCase("landscape") == true)
-		tmpstate = Landscape_state;
+		tmpmesh = Landscape;
 
-	return AddWallMain(tmpstate, name, texture, thickness, x1, z1, x2, z2, height_in1, height_in2, altitude1, altitude2, tw2, th2);
+	return AddWallMain(tmpmesh, name, texture, thickness, x1, z1, x2, z2, height_in1, height_in2, altitude1, altitude2, tw2, th2);
 }
 
 int SBS::AddFloor(const char *meshname, const char *name, const char *texture, float thickness, float x1, float z1, float x2, float z2, float altitude1, float altitude2, float tw, float th)
@@ -2498,15 +2498,15 @@ int SBS::AddFloor(const char *meshname, const char *name, const char *texture, f
 	tw2 = AutoSize(x1, x2, true, tw);
 	th2 = AutoSize(z1, z2, false, th);
 
-	csRef<iThingFactoryState> tmpstate;
+	csRef<iMaterialWrapper> tmpmesh;
 	if (mesh.CompareNoCase("external") == true)
-		tmpstate = External_state;
+		tmpmesh = External;
 	if (mesh.CompareNoCase("buildings") == true)
-		tmpstate = Buildings_state;
+		tmpmesh = Buildings;
 	if (mesh.CompareNoCase("landscape") == true)
-		tmpstate = Landscape_state;
+		tmpmesh = Landscape;
 
-	return AddFloorMain(tmpstate, name, texture, thickness, x1, z1, x2, z2, altitude1, altitude2, tw2, th2);
+	return AddFloorMain(tmpmesh, name, texture, thickness, x1, z1, x2, z2, altitude1, altitude2, tw2, th2);
 }
 
 int SBS::AddGround(const char *name, const char *texture, float x1, float z1, float x2, float z2, float altitude, int tile_x, int tile_z)

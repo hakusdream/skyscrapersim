@@ -62,7 +62,7 @@ ButtonPanel::ButtonPanel(int _elevator, int index, const char *texture, int rows
 	buffer = "Button Panel " + buffer2 + ":" + buffer3;
 	buffer.Trim();
 	ButtonPanelMesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	ButtonPanel_state = scfQueryInterface<iThingFactoryState> (ButtonPanelMesh->GetMeshObject()->GetFactory());
+	ButtonPanel_state = scfQueryInterface<iGeneralFactoryState> (ButtonPanelMesh->GetMeshObject()->GetFactory());
 	ButtonPanelMesh->SetZBufMode(CS_ZBUF_USE);
 	ButtonPanelMesh->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
 	ButtonPanelMesh->GetMeshObject()->SetMixMode(CS_FX_ALPHA);

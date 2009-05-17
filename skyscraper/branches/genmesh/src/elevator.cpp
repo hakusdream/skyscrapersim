@@ -135,7 +135,7 @@ Elevator::Elevator(int number)
 	buffer.Insert(0, "Elevator ");
 	buffer.Trim();
 	ElevatorMesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	Elevator_state = scfQueryInterface<iThingFactoryState> (ElevatorMesh->GetMeshObject()->GetFactory());
+	Elevator_state = scfQueryInterface<iGeneralFactoryState> (ElevatorMesh->GetMeshObject()->GetFactory());
 	Elevator_movable = ElevatorMesh->GetMovable();
 	ElevatorMesh->SetZBufMode(CS_ZBUF_USE);
 	ElevatorMesh->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -145,7 +145,7 @@ Elevator::Elevator(int number)
 	buffer.Insert(0, "FloorIndicator ");
 	buffer.Trim();
 	FloorIndicator = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	FloorIndicator_state = scfQueryInterface<iThingFactoryState> (FloorIndicator->GetMeshObject()->GetFactory());
+	FloorIndicator_state = scfQueryInterface<iGeneralFactoryState> (FloorIndicator->GetMeshObject()->GetFactory());
 	FloorIndicator_movable = FloorIndicator->GetMovable();
 	FloorIndicator->SetZBufMode(CS_ZBUF_USE);
 	FloorIndicator->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -155,7 +155,7 @@ Elevator::Elevator(int number)
 	buffer.Insert(0, "ElevatorDoorL ");
 	buffer.Trim();
 	ElevatorDoorL = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	ElevatorDoorL_state = scfQueryInterface<iThingFactoryState> (ElevatorDoorL->GetMeshObject()->GetFactory());
+	ElevatorDoorL_state = scfQueryInterface<iGeneralFactoryState> (ElevatorDoorL->GetMeshObject()->GetFactory());
 	ElevatorDoorL_movable = ElevatorDoorL->GetMovable();
 	ElevatorDoorL->SetZBufMode(CS_ZBUF_USE);
 	ElevatorDoorL->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -165,7 +165,7 @@ Elevator::Elevator(int number)
 	buffer.Insert(0, "ElevatorDoorR ");
 	buffer.Trim();
 	ElevatorDoorR = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	ElevatorDoorR_state = scfQueryInterface<iThingFactoryState> (ElevatorDoorR->GetMeshObject()->GetFactory());
+	ElevatorDoorR_state = scfQueryInterface<iGeneralFactoryState> (ElevatorDoorR->GetMeshObject()->GetFactory());
 	ElevatorDoorR_movable = ElevatorDoorR->GetMovable();
 	ElevatorDoorR->SetZBufMode(CS_ZBUF_USE);
 	ElevatorDoorR->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -175,7 +175,7 @@ Elevator::Elevator(int number)
 	buffer.Insert(0, "Plaque ");
 	buffer.Trim();
 	Plaque = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
-	Plaque_state = scfQueryInterface<iThingFactoryState> (Plaque->GetMeshObject()->GetFactory());
+	Plaque_state = scfQueryInterface<iGeneralFactoryState> (Plaque->GetMeshObject()->GetFactory());
 	Plaque_movable = Plaque->GetMovable();
 	Plaque->SetZBufMode(CS_ZBUF_USE);
 	Plaque->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -2017,12 +2017,12 @@ int Elevator::AddShaftDoors(const char *texture, float thickness, float CenterX,
 		buffer.Trim();
 		buffer2.Trim();
 		csRef<iMeshWrapper> tmpmesh;
-		csRef<iThingFactoryState> tmpstate;
+		csRef<iGeneralFactoryState> tmpstate;
 
 		//door L
 		tmpmesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
 		ShaftDoorL[i] = tmpmesh;
-		tmpstate = scfQueryInterface<iThingFactoryState> (ShaftDoorL[i]->GetMeshObject()->GetFactory());
+		tmpstate = scfQueryInterface<iGeneralFactoryState> (ShaftDoorL[i]->GetMeshObject()->GetFactory());
 		ShaftDoorL_state[i] = tmpstate;
 		ShaftDoorL[i]->SetZBufMode(CS_ZBUF_USE);
 		ShaftDoorL[i]->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());
@@ -2031,7 +2031,7 @@ int Elevator::AddShaftDoors(const char *texture, float thickness, float CenterX,
 		//door R
 		tmpmesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer2.GetData());
 		ShaftDoorR[i] = tmpmesh;
-		tmpstate = scfQueryInterface<iThingFactoryState> (ShaftDoorR[i]->GetMeshObject()->GetFactory());
+		tmpstate = scfQueryInterface<iGeneralFactoryState> (ShaftDoorR[i]->GetMeshObject()->GetFactory());
 		ShaftDoorR_state[i] = tmpstate;
 		ShaftDoorR[i]->SetZBufMode(CS_ZBUF_USE);
 		ShaftDoorR[i]->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());

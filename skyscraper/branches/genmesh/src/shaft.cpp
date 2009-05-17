@@ -71,10 +71,10 @@ Shaft::Shaft(int number, int type, float CenterX, float CenterZ, int _startfloor
 		buffer = "Shaft " + buffer2 + ":" + buffer3;
 		buffer.Trim();
 		csRef<iMeshWrapper> tmpmesh;
-		csRef<iThingFactoryState> tmpstate;
+		csRef<iGeneralFactoryState> tmpstate;
 		tmpmesh = sbs->engine->CreateSectorWallsMesh (sbs->area, buffer.GetData());
 		ShaftArray[i - startfloor] = tmpmesh;
-		tmpstate = scfQueryInterface<iThingFactoryState> (ShaftArray[i - startfloor]->GetMeshObject()->GetFactory());
+		tmpstate = scfQueryInterface<iGeneralFactoryState> (ShaftArray[i - startfloor]->GetMeshObject()->GetFactory());
 		ShaftArray_state[i - startfloor] = tmpstate;
 		ShaftArray[i - startfloor]->SetZBufMode(CS_ZBUF_USE);
 		ShaftArray[i - startfloor]->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());

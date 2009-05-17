@@ -417,8 +417,8 @@ void Camera::ClickedObject()
 	meshname = result.mesh->QueryObject()->GetName();
 
 	//get polygon name
-	csRef<iThingFactoryState> state = scfQueryInterface<iThingFactoryState> (result.mesh->GetMeshObject()->GetFactory());
-	polyname = state->GetPolygonName(result.polygon_idx);
+	csRef<iMaterialWrapper> mesh = scfQueryInterface<iGeneralFactoryState> (result.mesh->GetMeshObject()->GetFactory());
+	polyname = mesh->GetPolygonName(result.polygon_idx);
 
 	//show result
 	sbs->Report("Clicked on object - Mesh: " + meshname + ", Polygon: " + polyname);

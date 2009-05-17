@@ -173,19 +173,19 @@ public:
 
 private:
 	csRef<iMeshWrapper> ElevatorMesh; //elevator mesh object
-		csRef<iThingFactoryState> Elevator_state;
+		csRef<iGeneralFactoryState> Elevator_state;
 		csRef<iMovable> Elevator_movable;
 	csRef<iMeshWrapper> FloorIndicator; //floor indicator object
-		csRef<iThingFactoryState> FloorIndicator_state;
+		csRef<iGeneralFactoryState> FloorIndicator_state;
 		csRef<iMovable> FloorIndicator_movable;
 	csRef<iMeshWrapper> ElevatorDoorL; //left inside door
-		csRef<iThingFactoryState> ElevatorDoorL_state;
+		csRef<iGeneralFactoryState> ElevatorDoorL_state;
 		csRef<iMovable> ElevatorDoorL_movable;
 	csRef<iMeshWrapper> ElevatorDoorR; //right inside door
-		csRef<iThingFactoryState> ElevatorDoorR_state;
+		csRef<iGeneralFactoryState> ElevatorDoorR_state;
 		csRef<iMovable> ElevatorDoorR_movable;
 	csRef<iMeshWrapper> Plaque; //plaque object
-		csRef<iThingFactoryState> Plaque_state;
+		csRef<iGeneralFactoryState> Plaque_state;
 		csRef<iMovable> Plaque_movable;
 
 	//Internal elevator simulation data
@@ -206,9 +206,9 @@ private:
 	int WhichDoors;
 	int ShaftDoorFloor;
 	csRefArray<iMeshWrapper> ShaftDoorL; //shaft door array
-	csRefArray<iThingFactoryState> ShaftDoorL_state; //shaft door array state
+	csRefArray<iGeneralFactoryState> ShaftDoorL_state; //shaft door array state
 	csRefArray<iMeshWrapper> ShaftDoorR; //shaft door array
-	csRefArray<iThingFactoryState> ShaftDoorR_state; //shaft door array state
+	csRefArray<iGeneralFactoryState> ShaftDoorR_state; //shaft door array state
 	float JerkRate; //current jerk value, used as an acceleration/deceleration multiplier
 	float JerkPos; //temporary storage for the elevator rate at the end of the jerkrate increments
 	csRef<iMaterialWrapper> orig_indicator;

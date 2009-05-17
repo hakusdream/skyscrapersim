@@ -95,7 +95,7 @@ Door::Door(const char *name, const char *texture, float thickness, int direction
 
 	//Create mesh
 	DoorMesh = sbs->engine->CreateSectorWallsMesh (sbs->area, Name.GetData());
-	DoorMesh_state = scfQueryInterface<iThingFactoryState> (DoorMesh->GetMeshObject()->GetFactory());
+	DoorMesh_state = scfQueryInterface<iGeneralFactoryState> (DoorMesh->GetMeshObject()->GetFactory());
 	DoorMesh_movable = DoorMesh->GetMovable();
 	DoorMesh->SetZBufMode(CS_ZBUF_USE);
 	DoorMesh->SetRenderPriority(sbs->engine->GetAlphaRenderPriority());

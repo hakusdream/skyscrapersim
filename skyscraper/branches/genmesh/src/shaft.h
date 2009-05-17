@@ -68,7 +68,7 @@ public:
 
 private:
 	csRefArray<iMeshWrapper> ShaftArray; //shaft mesh array
-	csRefArray<iThingFactoryState> ShaftArray_state; //shaft mesh array state
+	csRefArray<iGeneralFactoryState> ShaftArray_state; //shaft mesh array state
 	csArray<bool> EnableArray;
 	bool EnableCheck;
 
