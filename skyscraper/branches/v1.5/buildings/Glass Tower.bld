@@ -1,0 +1,722 @@
+# $Id$
+	
+# The Glass Tower
+# Featured in the movie The Towering Inferno
+# Model Copyright (C)2005-2009 Ryan Thoryk and Michael Jehn
+# Original movie model by William Creber and others
+
+#This program is free software; you can redistribute it and/or
+#modify it under the terms of the GNU General Public License
+#as published by the Free Software Foundation; either version 2
+#of the License, or (at your option) any later version.
+
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+
+#You should have received a copy of the GNU General Public License
+#along with this program; if not, write to the Free Software
+#Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+<Globals>
+    Name = Glass Tower
+    Designer = William Creber and others
+    Location = 655 Market Street, San Francisco, CA
+    Description = The fictitious 138-story building from the movie The Towering Inferno.
+    Version = 1
+    CameraFloor = 0
+    CameraPosition = 0, -300
+    CameraRotation = 0, 0, 0
+<EndGlobals>
+
+<Textures>
+    Load data/brick1.jpg, Brick, 0.269, 0.25
+    Load data/lobbyfront.jpg, LobbyFront, 0.022, 1
+    Load data/windows11e.jpg, MainWindows, 0.072, 1
+    Load data/Carpet0013_S.jpg, Carpet1, 0.2, 0.2
+    Load data/symb5.jpg, Marble3, 0.269, 0.25
+    Load data/marb047.jpg, Marble4, 0.269, 0.25
+    Load data/cutston.jpg, Ceiling1, 0.269, 0.25
+    Load data/cutston.jpg, Backing, 0.111, 1
+    Load data/cinderblocks.jpg, Concrete, 0.25, 0.25
+    Load data/metal1.jpg, ElevExt, 0.25, 0.25
+    Load data/door1.jpg, ElevDoors, 1, 1
+    Load data/door1.jpg, ElevDoors2, -1, 1
+    Load data/panel-back2.jpg, ElevExtPanels, 1, 1
+    Load data/marb148.jpg, ElevPanel, 1, 1
+    Load data/diamond18j.jpg, ElevWall, 1, 1
+    Load data/windows11h_inside.gif, ElevWallGlass, 1, 1
+    Load data/diamond18j.jpg, ElevPanelMain, 1, 1
+    Load data/elev1.jpg, ElevCeiling, 0.25, 0.25
+    Load data/Carpet0006_S.jpg, ElevFloor, 0.25, 0.25
+    Load data/callbutton.gif, ButtonUp, 1, 1
+    Load data/callbutton_lit.gif, ButtonUpLit, 1, 1
+    Load data/callbutton.gif, ButtonDown, 1, -1
+    Load data/callbutton_lit.gif, ButtonDownLit, 1, -1
+    Load data/marbl3.jpg, Wall1, 0.269, 0.25
+    Load data/servicedoor2.jpg, StairsDoor, 1, 1
+    Load data/darrow_unlit.gif, ArrowUp, 1, 1
+    Load data/darrow_unlit.gif, ArrowDown, 1, -1
+    Load data/darrow_lit.gif, ArrowUp_Lit, 1, 1
+    Load data/darrow_lit.gif, ArrowDown_Lit, 1, -1
+
+    Load data/black.jpg, Black, 1, 1
+    AddText Black, ButtonOpen, nimbus_sans.ttf, 28, Open, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonClose, nimbus_sans.ttf, 28, Close, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonStop, nimbus_sans.ttf, 28, Stop, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonAlarm, nimbus_sans.ttf, 28, Alarm, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonCancelTemp, nimbus_sans.ttf, 28, Call, -1, 30, -1, 54, center, center, 255, 255, 255
+    AddText ButtonCancelTemp, ButtonCancel, nimbus_sans.ttf, 28, Cancel, -1, 71, -1, 95, center, center, 255, 255, 255
+    AddText Black, ButtonL, nimbus_sans.ttf, 47, L, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonR, nimbus_sans.ttf, 47, R, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddText Black, ButtonPR, nimbus_sans.ttf, 47, PR, -1, -1, -1, -1, center, center, 255, 255, 255
+    AddTextRange 1, 138, Black, Button%number%, nimbus_sans.ttf, 47, %number%, -1, -1, -1, -1, center, center, 255, 255, 255
+<EndTextures>
+
+# Lobby
+<Floor 0>
+    ID = L
+    Name = Lobby
+    Type = Lobby
+    Height = 30
+    InterfloorHeight = 0
+
+    #AddFloor Floor, Marble4, 0.5, -74, -69.4, 74, 69.4, 0, 0, 0, 0, False
+    AddFloor Floor, Marble4, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    #AddFloor Ceiling, Ceiling1, 0.5, -91, -85.3, 91, 85.3, %height% - 0.05, %height% - 0.05, 0, 0, False
+
+    #Lobby Front
+    SetAutoSize = true, false
+    AddWall Back Left, LobbyFront, 0, -52.4, 44.9, -18.3, 79, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Left Corner, LobbyFront, 0, -47.1, 44.9, -52.4, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Right, LobbyFront, 0, -18.3, 79, 49.9, 52.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Right Corner, LobbyFront, 0, 49.9, 52.8, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, LobbyFront, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, LobbyFront, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Front Left, LobbyFront, 0, -98.4, -52.1, -75.1, -16.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Front Center, LobbyFront, 0, -98.4, -52.1, -16, -51.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Corner, LobbyFront, 0, -12.2, -51.8, -14.4, -47.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Detachment, Brick, 0, -14.4, -47.8, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, LobbyFront, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, LobbyFront, 0, 18.3, -45.6, 83.4, -22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Right Top, LobbyFront, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, LobbyFront, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloor>
+
+# floors 2 to 39
+<Floors 1 to 38>
+    ID = %floor% + 1
+    Name = Offices
+    Type = Office
+    Height = 9.5
+    InterfloorHeight = 2.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back Left, MainWindows, 0, -52.4, 44.9, -18.3, 79, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Left Corner, MainWindows, 0, -47.1, 44.9, -52.4, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Right, MainWindows, 0, -18.3, 79, 49.9, 52.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Right Corner, MainWindows, 0, 49.9, 52.8, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Front Left, MainWindows, 0, -98.4, -52.1, -75.1,-16.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Front Center, MainWindows, 0, -98.4, -52.1, -12.2,-51.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Corner, MainWindows, 0, -12.2, -51.8, -14.4,-47.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Detachment, Brick, 0, -14.4, -47.8, -12.2,-45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3,-45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, MainWindows, 0, 18.3, -45.6, 83.4,-22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Right Top, MainWindows, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+    
+    #AddAutoFloor Test, Carpet1, 0, 0, 0
+<EndFloors>
+
+# floors 40 to 58
+<Floors 39 To 57>
+    ID = %floor% + 1
+    Name = Offices
+    Type = Office
+    Height = 9.5
+    InterfloorHeight = 2.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    if[%floor% < 50] AddWall Back Left, MainWindows, 0, -52.4, 44.9, -18.3, 79, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Back Left Corner, MainWindows, 0, -47.1, 44.9, -52.4, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Front Left, MainWindows, 0, -98.4, -52.1, -75.1, -16.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Front Center, MainWindows, 0, -98.4, -52.1, -12.2, -51.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Corner, MainWindows, 0, -12.2, -51.8, -14.4, -47.8, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front Right Detachment, Brick, 0, -14.4, -47.8, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, MainWindows, 0, 18.3, -45.6, 83.4, -22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Right Top, MainWindows, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 59 to 64
+<Floors 58 to 63>
+    ID = %floor% + 1
+    Name = Offices
+    Type = Office
+    Height = 9.5
+    InterfloorHeight = 2.5
+
+    if[%floor% ! 65] AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    if[%floor% ! 64] AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    ReverseExtents = true, true, true
+    AddWall Front Left, MainWindows, 0, -98.4, -52.1, -75.1, -16.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Back Left Corner, MainWindows, 0, -47.1, 44.9, -52.4, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, MainWindows, 0, 18.3, -45.6, 83.4, -22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, true, true
+    AddWall Right Top, MainWindows, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 65 to 78
+<Floors 64 To 77>
+    ID = %floor% + 1
+    Name = Offices
+    Type = Office
+    Height = 9.5
+    InterfloorHeight = 2.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    if[%floor% < 77] AddWall Front Left Corner, MainWindows, 0, -75.1, -16.9, -76.9, -19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    if[%floor% > 76] AddWall Front, MainWindows, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    if[%floor% > 65] AddWall Back, MainWindows, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    if[%floor% < 66] AddWall Back Left Corner, MainWindows, 0, -47.1, 44.9, -52.4, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, MainWindows, 0, 18.3, -45.6, 83.4, -22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Right Top, MainWindows, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 79 to 86
+<Floors 78 To 85>
+    ID = %floor% + 1
+    Name = Residential
+    Type = Residential
+    Height = 8.5
+    InterfloorHeight = 3.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back, MainWindows, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front, MainWindows, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Bottom, MainWindows, 0, 18.3, -45.6, 83.4, -22.3, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = true, false, true
+    AddWall Right Top, MainWindows, 0, 83.4, -22.3, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    ReverseExtents = false, false, false
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 87 to 113
+<Floors 86 To 112>
+    ID = %floor% + 1
+    Name = Residential
+    Type = Residential
+    Height = 8.5
+    InterfloorHeight = 3.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back, MainWindows, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Upper, MainWindows, 0, -84.8, 10, -47.1, 44.9, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Left Lower, MainWindows, 0, -75.1, -16.9, -84.8, 10, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front, MainWindows, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 114 to 120
+<Floors 113 To 119>
+    ID = %floor% + 1
+    Name = Residential
+    Type = Residential
+    Height = 8.5
+    InterfloorHeight = 3.5
+
+    AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back, MainWindows, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front, MainWindows, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+# floors 121 to 136
+<Floors 120 To 135>
+    Height = 9.5
+    InterfloorHeight = 2.5
+
+    if[%floor% < 134] AddFloor Floor, Carpet1, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    if[%floor% < 133 | %floor% = 134] AddFloor Ceiling, Marble3, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back, MainWindows, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front, MainWindows, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Top Corner, MainWindows, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+<Floors 120 to 132>
+    ID = %floor% + 1
+    Name = Other
+    Type = Other
+<EndFloors>
+
+<Floor 133>
+    ID = PR
+    Name = Other
+    Type = Other
+    Group = 134
+<EndFloor>
+
+<Floor 134>
+    ID = PR
+    Name = Promenade Room
+    Type = Ballroom
+    Group = 133
+<EndFloor>
+
+<Floor 135>
+    ID = %floor% + 1
+    Name = Utility Room
+    Type = Service
+<EndFloor>
+
+<Floor 136>
+    ID = %floor% + 1
+    Name = Mechanical
+    Type = Service
+<EndFloor>
+
+<Floor 137>
+    ID = %floor% + 1
+    Name = Rooftop Heliport
+    Type = Roof
+<EndFloor>
+
+# floors 137 and 138
+<Floors 136 To 137>
+    Height = 12
+    InterfloorHeight = 0
+
+    AddFloor Floor, Marble4, 0.5, -355.5, -355.5, 355.5, 355.5, 0, 0, 0, 0, False
+    AddFloor Ceiling, Marble4, 0.5, -355.5, -355.5, 355.5, 355.5, %height%, %height%, 0, 0, False
+
+    # Interfloor bottom
+
+    # Interfloor top
+
+    # Interfloor walls
+
+    #External windows/walls
+    SetAutoSize = true, false
+    AddWall Back, Concrete, 0, -47.1, 44.9, 47.1, 46, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Front, Concrete, 0, -75.1, -16.9, -12.2, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    #AddWall Glass Elevator Back, Backing, 0, -12.2, -45.6, 18.3, -45.6, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    AddWall Right Top Corner, Concrete, 0, 47.1, 46, 59.3, 19.4, %fullheight%, %fullheight%, 0, 0, 0, 0, True
+    SetAutoSize = true, true
+<EndFloors>
+
+SetAutoSize = true, false
+# front setback
+AddCustomWall external, Main, MainWindows, -98.4, Floor(64).Altitude, -52.1, -76.9, Floor(78).Altitude, -19.4, -14.4, Floor(60).Altitude, -46.3, -12.2, Floor(58).Altitude, -51.8, 0, 20
+AddTriangleWall external, Left, MainWindows, -76.9, Floor(64).Altitude, -19.4, -76.9, Floor(78).Altitude, -19.4, -98.4, Floor(64).Altitude, -52.1, 0, -14
+AddTriangleWall external, Right Front, MainWindows, -12.2, Floor(58).Altitude, -51.8, -14.4, Floor(60).Altitude, -46.3, -14.4, Floor(58).Altitude, -47.8, 0, -2
+AddCustomWall external, Right Back, Brick, -14.4, Floor(58).Altitude, -47.8, -14.4, Floor(60).Altitude, -46.3, -16.9, Floor(60).Altitude, -43.4, -12.2, Floor(58).Altitude, -45.6, 0, -2
+ReverseExtents = false, false, true
+AddTriangleWall external, Back, MainWindows, -12.2, Floor(77).Altitude, -45.6, -75.1, Floor(77).Altitude, -16.9, -12.2, Floor(58).Altitude, -45.6, 0, 19
+ReverseExtents = false, true, false
+AddTriangleWall external, Bottom, MainWindows, -98.4, Floor(58).Altitude, -52.1, -98.4, Floor(64).Altitude, -52.1, -12.2, Floor(58).Altitude, -51.8, 0, -6
+ReverseExtents = false, false, false
+AddCustomWall external, Back Filler, Brick, -14.4, Floor(60).Altitude, -46.3, -16.9, Floor(60).Altitude, -43.4, -75.1, Floor(77).Altitude, -16.9, -73, Floor(77).Altitude, -21.2, 0, 1
+AddTriangleWall external, Top Triangle Filler 1, MainWindows, -75.1, Floor(77).Altitude, -16.9, -76.9, Floor(78).Altitude, -19.4, -73, Floor(77).Altitude, -21.2, 0, 1
+AddTriangleWall external, Top Triangle Filler 2, MainWindows, -75.1, Floor(77).Altitude, -16.9, -76.9, Floor(78).Altitude, -19.4, -76.9, Floor(77).Altitude, -19.4, 0, 1
+
+# back setback
+AddTriangleWall external, Back, MainWindows, 47.1, Floor(66).Altitude, 46, 47.1, Floor(41).Altitude, 46, -49.3, Floor(66).Altitude, 44.9, 0, 25
+ReverseExtents = false, false, true
+AddCustomWall external, Main, MainWindows, 49.9, Floor(39).Altitude, 52.8, -18.3, Floor(50).Altitude, 79, -52.4, Floor(67).Altitude, 44.9, 47.1, Floor(41).Altitude, 46, 0, 28
+AddTriangleWall external, Right, MainWindows, -18.3, Floor(39).Altitude, 79, -18.3, Floor(50).Altitude, 79, 49.9, Floor(39).Altitude, 52.8, 0, -11
+ReverseExtents = false, false, false
+AddTriangleWall external, Right Notch Base, MainWindows, 47.1, Floor(39).Altitude, 46, 47.1, Floor(41).Altitude, 46, 49.9, Floor(39).Altitude, 52.8, 0, -2
+AddTriangleWall external, Left, MainWindows, -52.4, Floor(50).Altitude, 44.9, -52.4, Floor(67).Altitude, 44.9, -18.3, Floor(50).Altitude, 79.1, 0, -17
+AddTriangleWall external, Left Notch Filler, MainWindows, -52.4, Floor(66).Altitude, 44.9, -49.3, Floor(66).Altitude, 44.9, -52.4, Floor(67).Altitude, 44.9, 0, 1
+
+# right setback
+AddTriangleWall external, Main, MainWindows, 18.3, Floor(137).Altitude, -45.6, 83.4, Floor(86).Altitude, -22.3, 59.3, Floor(137).Altitude, 19.4, 0, 51
+AddTriangleWall external, Front, MainWindows, 18.3, Floor(86).Altitude, -45.6, 18.3, Floor(137).Altitude, -45.6, 83.4, Floor(86).Altitude, -22.3, 0, -51
+ReverseExtents = false, false, true
+AddTriangleWall external, Back, MainWindows, 59.3, Floor(86).Altitude, 19.4, 59.3, Floor(137).Altitude, 19.4, 83.4, Floor(86).Altitude, -22.3, 0, -51
+
+# left setback
+ReverseExtents = false, false, false
+AddTriangleWall external, Main, MainWindows, -75.1, Floor(137).Altitude, -16.9, -84.8, Floor(113).Altitude, 10, -47, Floor(137).Altitude, 44.9, -1, 24
+ReverseExtents = true, false, false
+AddTriangleWall external, Front, MainWindows, -75.1, Floor(113).Altitude, -16.9, -75.1, Floor(137).Altitude, -16.9, -84.8, Floor(113).Altitude, 10, 0, -24
+AddTriangleWall external, Back, MainWindows, -47, Floor(113).Altitude, 44.9, -47, Floor(137).Altitude, 44.9, -84.8, Floor(113).Altitude, 10, 0, -24
+
+
+#Glass Elevator Shaft
+AddShaft 1, 2, 3.05, -49.85, 0, 137
+ShaftCut 1, -15.25, -4.25 + 0.33, 15.25, 4.25, 0, 5
+ShaftShowOutside 1 = 0 - 137
+ShowFullShaft 1 = true
+
+#Test elevator
+AddShaft 2, 2, 40, 40, 0, 137
+ShaftCut 2, -4, -4.125 + 0.33, 4, 4.125, 0, 5
+ShowFullShaft 2 = true
+
+#Glass Elevator shaft
+<Floors 0 to 137>
+    SetAutoSize = true, true
+    FloorOrientation = top
+    DrawWalls = false, true, false, false, false, false
+    if[%floor% = 0] AddShaftFloor 1, Shaft1Base, Brick, 0.5, -15.25, -4.125, 15.25, 4.125, -0.1, -0.1, 0, 0
+    DrawWalls = true, false, false, false, false, false
+    if[%floor% = 138] AddShaftFloor 1, Shaft1Top, Brick, 0.5, -15.25, -4.125, 15.25, 4.125, %fullheight%, %fullheight%, 0, 0
+    SetAutoSize = true, false
+    DrawWalls = true, true, false, false, false, false
+    WallOrientation = right
+    #AddShaftWall 1, Shaft1Right, Brick, 0.33, 4, -4.125, 4, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 1
+    AddShaftWall 1, Shaft1Back, Backing, 0.33, -15.25, 4.125, 15.25, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 1
+	
+    SetAutoSize = true, true
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    if[%floor% ! 134] AddWall Shaft1BackE, Wall1, 0.33, 3.05 - 15.25 - 0.33, 4.125 - 49.85, 3.05 + 15.25 + 0.33, 4.125 - 49.85, %height%, %height%, 0, 0, 0, 0, False
+    if[%floor% = 134] AddWall Shaft1BackE, Wall1, 0.33, 3.05 - 15.25 - 0.33, 4.125 - 49.85, 3.05 + 15.25 + 0.33, 4.125 - 49.85, %fullheight%, %fullheight%, -%interfloorheight%, -%interfloorheight%, 0, 0, False
+<EndFloors>
+
+#test elevator
+<Floors 0 to 137>
+    FloorOrientation = top
+    DrawWalls = false, true, false, false, false, false
+    if[%floor% = 0] AddShaftFloor 2, Shaft1Base, Brick, 0.5, -4, -4.125, 4, 4.125, -0.1, -0.1, 0, 0
+    DrawWalls = true, false, false, false, false, false
+    if[%floor% = 137] AddShaftFloor 2, Shaft1Top, Brick, 0.5, -4, -4.125, 4, 4.125, %fullheight%, %fullheight%, 0, 0
+    DrawWalls = true, true, false, false, false, false
+    WallOrientation = left
+    AddShaftWall 2, Shaft2Left, Brick, 0.33, -4, -4.125, -4, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+    AddShaftWall 2, Shaft2Front, Brick, 0.33, -4, -4.125, 4, -4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+    WallOrientation = right
+    AddShaftWall 2, Shaft2Right, Brick, 0.33, 4, -4.125, 4, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+    AddShaftWall 2, Shaft2Back, Brick, 0.33, -4, 4.125, 4, 4.125, %fullheight%, %fullheight%, 0, 0, 0, 0
+
+    WallOrientation = right
+    DrawWalls = true, false, false, false, false, false
+    AddWall Shaft2LeftE, Wall1, 0.33, 40 - 4, 40 - 4.125 - 0.33, 40 - 4, 40 + 4.125 + 0.33, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Shaft2FrontE, Wall1, 0.33, 40 - 4 - 0.33, 40 - 4.125, 40 + 4 + 0.33, 40 - 4.125, %height%, %height%, 0, 0, 0, 0, False
+    WallOrientation = left
+    DrawWalls = false, true, false, false, false, false
+    AddWall Shaft2RightE, Wall1, 0.33, 40 + 4, 40 - 4.125 - 0.33, 40 + 4, 40 + 4.125 + 0.33, %height%, %height%, 0, 0, 0, 0, False
+    AddWall Shaft2BackE, Wall1, 0.33, 40 - 4 - 0.33, 40 + 4.125, 40 + 4 + 0.33, 40 + 4.125, %height%, %height%, 0, 0, 0, 0, False
+<EndFloors>
+
+
+#reset drawwalls
+DrawWalls = true, true, false, false, false, false
+
+<Elevator 1>
+    Speed = 20
+    Acceleration = 0.1
+    Deceleration = 0.1
+    AccelJerk = 0.3
+    DecelJerk = 0.3
+    ServicedFloors = 0, 133
+    AssignedShaft = 1
+    CreateElevator false, -5.75, -49.85 + 0.294, 0
+<EndElevator>
+
+<Elevator 2>
+    Speed = 20
+    Acceleration = 0.1
+    Deceleration = 0.1
+    AccelJerk = 0.3
+    DecelJerk = 0.3
+    ServicedFloors = 0, 133
+    AssignedShaft = 1
+    CreateElevator false, 3.05, -49.85 + 0.294, 0
+<EndElevator>
+
+<Elevator 3>
+    Speed = 20
+    Acceleration = 0.1
+    Deceleration = 0.1
+    AccelJerk = 0.3
+    DecelJerk = 0.3
+    ServicedFloors = 0, 133
+    AssignedShaft = 1
+    CreateElevator false, 11.85, -49.85 + 0.294, 0
+<EndElevator>
+
+<Elevators 1 to 3>    
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    TextureOverride ElevExt, ElevFloor, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Floor, ElevFloor, 0.2, -3.75, -3.125, 3.75, 3.125, 0, 0, 0, 0
+
+    #ceiling
+    FloorOrientation = bottom
+    TextureOverride ElevCeiling, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Ceiling, ElevCeiling, 0.2, -3.75, -3.125, 3.75, 3.125, 8, 8, 0, 0 #ceiling
+
+    SetAutoSize = false, false
+    
+    #right wall
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    AddWall Right, ElevWallGlass, 0.2, 3.75, -3.125, 3.75, 3.125, 8, 8, 0, 0, 1, 2 #right wall
+
+    #front and left walls
+    WallOrientation = left
+    AddWall Front, ElevWallGlass, 0.2, -3.75, -3.125, 3.75, -3.125, 8, 8, 0, 0, 1, 2 #front wall
+    AddWall Left, ElevWallGlass, 0.2, -3.75, -3.125, -3.75, 3.125, 8, 8, 0, 0, 1, 2 #left wall
+
+    SetAutoSize = true, true
+
+    #panels
+    WallOrientation = right
+    DrawWalls = true, true, false, true, false, false
+    TextureOverride ElevPanelMain, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Left Panel, ElevPanelMain, 0.2, -3.75, 3.125, -1.75, 3.125, 8, 8, 0, 0, 0, 0 #left panel
+    DrawWalls = true, true, true, false, false, false
+    TextureOverride ElevPanelMain, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Right Panel, ElevPanelMain, 0.2, 1.75, 3.125, 3.75, 3.125, 8, 8, 0, 0, 0, 0 #right panel
+
+    #doors
+    WallOrientation = left
+    DrawWalls = true, true, true, true, true, true
+    AddDoors 1, ElevDoors, ElevDoors2, 0.2, 0, 3.126, 3.5, 8, true, 0, 0 #doors
+    AddShaftDoors 1, ElevDoors2, ElevDoors, 0.2, 0, 3.426, 0, 0 #shaft doors
+    SetAutoSize = true, true
+
+    #floor signs
+    AddFloorSigns true, left, 3.5 / 2 - 0.01, 3.426 + 0.2 + 0.33, 0.5, 0.42, 5.5
+    AddFloorSigns true, right, -3.5 / 2 + 0.01, 3.426 + 0.2 + 0.33, 0.5, 0.42, 5.5
+
+    #panel
+    CreatePanel ElevPanel, 6, 3, front, 1.75 + 1 - 0.1, 3.125 - 0.2 - 0.001, 0.15, 0.15, 0.3, 0.45, 4, 0, 0
+    AddFloorButton 1, Button135, 2, 2, 133, 1, 1
+    AddFloorButton 1, Button1, 3, 2, 0, 1, 1
+    AddControlButton 1, ButtonOpen, 4, 1, open, 1, 1
+    AddControlButton 1, ButtonClose, 4, 3, close, 1, 1
+    AddControlButton 1, ButtonCancel, 5, 1, cancel, 1, 1
+    AddControlButton 1, ButtonStop, 5, 2, stop, 1, 1
+    AddControlButton 1, ButtonAlarm, 5, 3, alarm, 1, 1
+
+    #Floor Indicator
+    AddFloorIndicator front, 1.75 + 1 - 0.1, 3.125 - 0.2 - 0.001, 0.7, 0.5, 6.5
+
+<EndElevators>
+
+<Elevator 4>
+    #standard elevator; 7 feet wide, 6 feet deep
+    Speed = 25
+    Acceleration = 0.2
+    Deceleration = 0.2
+    AccelJerk = 0.3
+    DecelJerk = 0.3
+    ServicedFloors = 0, 2, 64 - 67, 69, 80, 119, 131 - 137
+    AssignedShaft = 2
+    CreateElevator false, 40, 40 - 0.294, 0
+    
+    #floor
+    FloorOrientation = top
+    DrawWalls = true, true, true, true, true, true
+    TextureOverride ElevExt, ElevFloor, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Floor, ElevFloor, 0.2, -3.5, -3, 3.5, 3, 0, 0, 0, 0
+    
+    #ceiling
+    FloorOrientation = bottom
+    TextureOverride ElevCeiling, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddFloor Ceiling, ElevCeiling, 0.2, -3.5, -3, 3.5, 3, 8, 8, 0, 0 #ceiling
+    
+    #back and right walls
+    WallOrientation = right
+    DrawWalls = true, true, false, false, false, false
+    TextureOverride ElevWall, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Back, ElevWall, 0.2, -3.5, 3, 3.5, 3, 8, 8, 0, 0, 0, 0 #back wall
+    TextureOverride ElevWall, ElevExt, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Right, ElevWall, 0.2, 3.5, -3, 3.5, 3, 8, 8, 0, 0, 0, 0 #right wall
+    
+    #left wall
+    WallOrientation = left
+    TextureOverride ElevExt, ElevWall, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Left, ElevWall, 0.2, -3.5, -3, -3.5, 3, 8, 8, 0, 0, 0, 0 #left wall
+
+    #panels
+    DrawWalls = true, true, false, true, false, false
+    TextureOverride ElevExt, ElevPanelMain, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Left Panel, ElevPanelMain, 0.2, -3.5, -3, -1.75, -3, 8, 8, 0, 0, 0, 0 #left panel
+    DrawWalls = true, true, true, false, false, false
+    TextureOverride ElevExt, ElevPanelMain, ElevExt, ElevExt, ElevExt, ElevExt
+    AddWall Right Panel, ElevPanelMain, 0.2, 1.75, -3, 3.5, -3, 8, 8, 0, 0, 0, 0 #right panel
+    
+    #doors
+    WallOrientation = right
+    DrawWalls = true, true, true, true, true, true
+    AddDoors 1, ElevDoors2, ElevDoors, 0.2, 0, -3.01, 3.5, 8, true, 0, 0 #doors
+    AddShaftDoors 1, ElevDoors, ElevDoors2, 0.2, 0, -3.301, 0, 0 #shaft doors
+    WallOrientation = left
+    SetAutoSize = true, true
+
+    #directional indicator
+    #AddDirectionalIndicators true, false, true, ElevExtPanels, ArrowUp, ArrowUp_Lit, ArrowDown, ArrowDown_Lit, -3, -4.162, 6, front, 0.5, 1, true, 0, 0
+    
+    #panel
+    CreatePanel ElevPanel, 13, 5, back, -1.75 - 0.875 + 0.1, -3 + 0.2 + 0.001, 0.15, 0.15, 0.3, 0.45, 4, 0, 0
+    AddFloorButton 1, Button138, 2, 4, 137, 1, 1
+    AddFloorButton 1, Button137, 2, 2, 136, 1, 1
+    AddFloorButton 1, Button136, 3, 4, 135, 1, 1
+    AddFloorButton 1, Button135, 3, 2, 134, 1, 1
+    AddFloorButton 1, Button134, 4, 4, 133, 1, 1
+    AddFloorButton 1, Button133, 4, 2, 132, 1, 1
+    AddFloorButton 1, Button132, 5, 4, 131, 1, 1
+    AddFloorButton 1, Button100, 5, 2, 99, 1, 1
+    AddFloorButton 1, Button81, 6, 4, 80, 1, 1
+    AddFloorButton 1, Button70, 6, 2, 69, 1, 1
+    AddFloorButton 1, Button68, 7, 2, 67, 1, 1
+    AddFloorButton 1, Button67, 7, 4, 66, 1, 1
+    AddFloorButton 1, Button66, 8, 2, 65, 1, 1
+    AddFloorButton 1, Button65, 8, 4, 64, 1, 1
+    AddFloorButton 1, Button3, 9, 2, 2, 1, 1
+    AddFloorButton 1, Button1, 9, 4, 0, 1, 1
+    AddControlButton 1, ButtonOpen, 11, 2, open, 1, 1
+    AddControlButton 1, ButtonClose, 11, 4, close, 1, 1
+    AddControlButton 1, ButtonCancel, 12, 2, cancel, 1, 1
+    AddControlButton 1, ButtonStop, 12, 3, stop, 1, 1
+    AddControlButton 1, ButtonAlarm, 12, 4, alarm, 1, 1
+
+    #Floor Indicator
+    AddFloorIndicator back, -1.75 - 0.875 + 0.1, -3 + 0.2 + 0.001, 0.7, 0.5, 6.5
+   
+<EndElevator>
+
+<Floor 0>
+    CallButtonElevators = 1, 2, 3
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, -1.35, -45.395 + 0.1, 4, back, 0.5, 1, true, 0, 0
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 7.45, -45.395 + 0.1, 4, back, 0.5, 1, true, 0, 0
+<EndFloor>
+
+<Floor 133>
+    CallButtonElevators = 1, 2, 3
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, -1.35, -45.395 + 0.1, 4, back, 0.5, 1, true, 0, 0
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 7.45, -45.395 + 0.1, 4, back, 0.5, 1, true, 0, 0
+<EndFloor>
+
+<Floors 0 to 137>
+    CallButtonElevators = 4
+    CreateCallButtons ElevExtPanels, ButtonUp, ButtonUpLit, ButtonDown, ButtonDownLit, 40 + 3, 40 - 4.125 - 0.33 - 0.1, 4, front, 0.5, 1, true, 0, 0
+<EndFloors>
