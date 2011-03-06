@@ -282,7 +282,15 @@ void MainScreen::OnPaint(wxPaintEvent& event)
 void Skyscraper::Render()
 {
 	// Render to the frame buffer
-	mRoot->renderOneFrame();
+	try
+	{
+		mRoot->renderOneFrame();
+	}
+	catch (Ogre::Exception &e)
+	{
+		ReportFatalError("Error during render operation\nDetails:" + e.getDescription());
+		Quit();
+	}
 
 #if defined(__WXGTK__)
 	if (skyscraper->mRenderWindow)
@@ -1282,7 +1290,7 @@ bool Skyscraper::Start()
 	}
 
 	//clear screen
-	mRoot->renderOneFrame();
+	Render();
 	
 	Starting = true;
 
