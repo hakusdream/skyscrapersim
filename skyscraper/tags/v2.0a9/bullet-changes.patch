@@ -1,0 +1,25 @@
+diff -urN a/src/BulletDynamics/Character/btKinematicCharacterController.cpp b/src/BulletDynamics/Character/btKinematicCharacterController.cpp
+--- a/src/BulletDynamics/Character/btKinematicCharacterController.cpp	2014-01-10 15:47:47.572520001 -0600
++++ b/src/BulletDynamics/Character/btKinematicCharacterController.cpp	2014-01-10 15:48:52.389223177 -0600
+@@ -607,8 +607,11 @@
+ void btKinematicCharacterController::preStep (  btCollisionWorld* collisionWorld)
+ {
+ 	
+-	int numPenetrationLoops = 0;
++	//this causes other objects to 'push' character, and is turned off because
++        //it interferes with stairs stepping
++	/*int numPenetrationLoops = 0;
+ 	m_touchingContact = false;
++
+ 	while (recoverFromPenetration (collisionWorld))
+ 	{
+ 		numPenetrationLoops++;
+@@ -618,7 +621,7 @@
+ 			//printf("character could not recover from penetration = %d\n", numPenetrationLoops);
+ 			break;
+ 		}
+-	}
++	}*/
+ 
+ 	m_currentPosition = m_ghostObject->getWorldTransform().getOrigin();
+ 	m_targetPosition = m_currentPosition;
