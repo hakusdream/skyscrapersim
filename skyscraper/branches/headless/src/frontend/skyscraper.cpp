@@ -159,9 +159,6 @@ bool Skyscraper::OnInit(void)
 		{ wxCMD_LINE_SWITCH, "h", "help", "show this help message",
 			wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
 
-		{ wxCMD_LINE_SWITCH, "H", "headless", "run in headless mode",
-			wxCMD_LINE_VAL_NONE, wxCMD_LINE_PARAM_OPTIONAL },
-
 		{ wxCMD_LINE_SWITCH, "c", "no-console", "hide the console",
 			wxCMD_LINE_VAL_NONE, wxCMD_LINE_PARAM_OPTIONAL },
 
@@ -178,6 +175,9 @@ bool Skyscraper::OnInit(void)
 			wxCMD_LINE_VAL_NONE, wxCMD_LINE_PARAM_OPTIONAL },
 
 		{ wxCMD_LINE_SWITCH, "p", "no-panel", "hide the control panel",
+			wxCMD_LINE_VAL_NONE, wxCMD_LINE_PARAM_OPTIONAL },
+
+		{ wxCMD_LINE_SWITCH, "H", "headless", "run in headless mode",
 			wxCMD_LINE_VAL_NONE, wxCMD_LINE_PARAM_OPTIONAL },
 
 		{ wxCMD_LINE_SWITCH, "v", "verbose", "enable verbose mode",
@@ -265,13 +265,13 @@ bool Skyscraper::OnInit(void)
 		ShowConsole(false);
 
 	//Create main window and set size from INI file defaults
-	if (Headless == false)
-	{
+	//if (Headless == false)
+	//{
 		window = new MainScreen(this, GetConfigInt("Skyscraper.Frontend.MenuWidth", 640), GetConfigInt("Skyscraper.Frontend.MenuHeight", 480));
 		//AllowResize(false);
 		window->ShowWindow();
 		window->CenterOnScreen();
-	}
+	//}
 
 	//start and initialize OGRE
 	if (!Initialize())
@@ -419,6 +419,9 @@ void Skyscraper::UnloadSim()
 void Skyscraper::Render()
 {
 	SBS_PROFILE_MAIN("Render");
+
+	if (Headless == true)
+		return;
 
 	// Render to the frame buffer
 	mRoot->renderOneFrame();
@@ -1638,6 +1641,9 @@ bool Skyscraper::InitSky(EngineContext *engine)
 	if (!engine)
 		return false;
 
+	if (Headless == true)
+		return true;
+
 	//ensure graphics card and render system are capable of Caelum's shaders
 	if (Renderer == "Direct3D9")
 	{
@@ -2162,7 +2168,9 @@ void Skyscraper::RefreshConsole()
 void Skyscraper::RefreshViewport()
 {
 	//refresh viewport to prevent rendering issues
-	mViewport->_updateDimensions();
+
+	if (Headless == false)
+		mViewport->_updateDimensions();
 }
 
 void Skyscraper::SwitchEngines()
