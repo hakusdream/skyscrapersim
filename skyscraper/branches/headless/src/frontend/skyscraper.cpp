@@ -257,9 +257,6 @@ bool Skyscraper::OnInit(void)
 	if (parser->Found(wxT("no-console")) == true)
 		showconsole = false;
 
-	if (Headless == true)
-		showconsole = false;
-
 	//create console window
 	if (showconsole == true)
 		ShowConsole(false);
