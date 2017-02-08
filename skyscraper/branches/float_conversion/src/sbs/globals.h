@@ -57,7 +57,8 @@
 
 namespace SBS {
 
-const float pi = 3.14159265f;
+typedef Ogre::Real Real;
+const Real pi = 3.14159265f;
 
 SBSIMPEXP bool IsEven(int Number);
 SBSIMPEXP bool IsNumeric(char character);

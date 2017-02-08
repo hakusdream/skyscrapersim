@@ -124,12 +124,12 @@ Camera::Camera(Object *parent) : Object(parent)
 	//set up camera and scene nodes
 
 	//set up collider character
-	float width = cfg_legs_width / 2;
+	Real width = cfg_legs_width / 2;
 	if (cfg_body_width > cfg_legs_width)
 		width = cfg_body_width / 2;
 
-	float height = (cfg_body_height + cfg_legs_height - 0.5f) - (width * 2);
-	float step_height = cfg_legs_height - 0.5f;
+	Real height = (cfg_body_height + cfg_legs_height - 0.5f) - (width * 2);
+	Real step_height = cfg_legs_height - 0.5f;
 
 	mCharacter = 0;
 	mShape = 0;
@@ -298,7 +298,7 @@ void Camera::UpdateCameraFloor()
 		CurrentFloorID = sbs->GetFloor(CurrentFloor)->ID;
 }
 
-bool Camera::Move(Ogre::Vector3 vector, float speed, bool flip)
+bool Camera::Move(Ogre::Vector3 vector, Real speed, bool flip)
 {
 	//moves the camera in a relative amount specified by a vector
 
@@ -334,7 +334,7 @@ bool Camera::Move(Ogre::Vector3 vector, float speed, bool flip)
 	return true;
 }
 
-bool Camera::MovePosition(Ogre::Vector3 vector, float speed)
+bool Camera::MovePosition(Ogre::Vector3 vector, Real speed)
 {
 	//moves the camera in a relative amount, using SetPosition, instead of character movement
 
@@ -348,7 +348,7 @@ bool Camera::MovePosition(Ogre::Vector3 vector, float speed)
 	return true;
 }
 
-void Camera::Rotate(const Ogre::Vector3 &rotation, float speed)
+void Camera::Rotate(const Ogre::Vector3 &rotation, Real speed)
 {
 	//rotates the camera in a relative amount in world space
 
@@ -359,7 +359,7 @@ void Camera::Rotate(const Ogre::Vector3 &rotation, float speed)
 	SetRotation(rot);
 }
 
-void Camera::RotateLocal(const Ogre::Vector3 &rotation, float speed)
+void Camera::RotateLocal(const Ogre::Vector3 &rotation, Real speed)
 {
 	//rotates the camera in a relative amount in local camera space
 
@@ -375,9 +375,9 @@ void Camera::RotateLocal(const Ogre::Vector3 &rotation, float speed)
 		RotationStopped = true;
 
 	//convert rotation values to degrees
-	float xdeg = (float)Ogre::Math::RadiansToDegrees(rotation.x) * speed; //X axis (up/down)
-	float ydeg = (float)Ogre::Math::RadiansToDegrees(rotation.y) * speed; //Y axis (left/right)
-	float zdeg = (float)Ogre::Math::RadiansToDegrees(rotation.z) * speed; //Z axis (clockwise/counterclockwise)
+	Real xdeg = (float)Ogre::Math::RadiansToDegrees(rotation.x) * speed; //X axis (up/down)
+	Real ydeg = (float)Ogre::Math::RadiansToDegrees(rotation.y) * speed; //Y axis (left/right)
+	Real zdeg = (float)Ogre::Math::RadiansToDegrees(rotation.z) * speed; //Z axis (clockwise/counterclockwise)
 	Rotation.x += xdeg;
 	Rotation.y += ydeg;
 	Rotation.z += zdeg;
@@ -546,8 +546,8 @@ void Camera::ClickedObject(bool shift, bool ctrl, bool alt, bool right)
 	if (width == 0 || height == 0)
 		return;
 
-	float x = (float)mouse_x / (float)width;
-	float y = (float)mouse_y / (float)height;
+	Real x = (float)mouse_x / (float)width;
+	Real y = (float)mouse_y / (float)height;
 	Ogre::Ray ray = MainCamera->getCameraToViewportRay(x, y);
 
 	//convert ray's origin and direction to engine-relative values
@@ -726,7 +726,7 @@ void Camera::Loop()
 		timing = sbs->GetAverageTime();
 	else
 		timing = sbs->GetElapsedTime();
-	float delta = timing / 1000.0f;
+	Real delta = timing / 1000.0f;
 
 	//reset collisions if needed
 	if (collision_reset == true && EnableBullet == true)
@@ -794,19 +794,19 @@ void Camera::Loop()
 	Sync();
 }
 
-void Camera::Strafe(float speed)
+void Camera::Strafe(Real speed)
 {
 	speed *= cfg_walk_maxspeed_multreal;
 	desired_velocity.x = -cfg_strafespeed * speed * cfg_walk_maxspeed * cfg_walk_maxspeed_multreal;
 }
 
-void Camera::Step(float speed)
+void Camera::Step(Real speed)
 {
 	speed *= cfg_walk_maxspeed_multreal;
 	desired_velocity.z = cfg_stepspeed * speed * cfg_walk_maxspeed * cfg_walk_maxspeed_multreal;
 }
 
-void Camera::Float(float speed)
+void Camera::Float(Real speed)
 {
 	speed *= cfg_walk_maxspeed_multreal;
 	desired_velocity.y = cfg_floatspeed * speed * cfg_walk_maxspeed * cfg_walk_maxspeed_multreal;
@@ -823,19 +823,19 @@ void Camera::Jump()
 		mCharacter->jump();
 }
 
-void Camera::Look(float speed)
+void Camera::Look(Real speed)
 {
 	//look up/down by rotating camera on X axis
 	desired_angle_velocity.x = cfg_lookspeed * speed * cfg_rotate_maxspeed;
 }
 
-void Camera::Turn(float speed)
+void Camera::Turn(Real speed)
 {
 	//turn camera by rotating on Y axis
 	desired_angle_velocity.y = cfg_turnspeed * speed * cfg_rotate_maxspeed * cfg_walk_maxspeed_multreal;
 }
 
-void Camera::Spin(float speed)
+void Camera::Spin(Real speed)
 {
 	//spin camera by rotating on Z axis
 	desired_angle_velocity.z = cfg_spinspeed * speed * cfg_rotate_maxspeed;
@@ -847,7 +847,7 @@ void Camera::FreelookMove(const Ogre::Vector3 &rotation)
 	angle_velocity = desired_angle_velocity;
 }
 
-void Camera::InterpolateMovement(float delta)
+void Camera::InterpolateMovement(Real delta)
 {
 	//calculate movement and rotation acceleration
 
@@ -886,7 +886,7 @@ void Camera::InterpolateMovement(float delta)
 	}
 }
 
-void Camera::SetGravity(float gravity, bool save_value, bool camera_only)
+void Camera::SetGravity(Real gravity, bool save_value, bool camera_only)
 {
 	if (save_value == true)
 		Gravity = gravity;
@@ -899,7 +899,7 @@ void Camera::SetGravity(float gravity, bool save_value, bool camera_only)
 	}
 }
 
-float Camera::GetGravity()
+Real Camera::GetGravity()
 {
 	return Gravity;
 }
@@ -927,7 +927,7 @@ bool Camera::GetGravityStatus()
 	return GravityStatus;
 }
 
-void Camera::SetFOVAngle(float angle)
+void Camera::SetFOVAngle(Real angle)
 {
 	//set camera FOV angle
 
@@ -936,13 +936,13 @@ void Camera::SetFOVAngle(float angle)
 
 	if (angle > 0 && angle < 179.63)
 	{
-		float ratio = (float)MainCamera->getAspectRatio();
+		Real ratio = (float)MainCamera->getAspectRatio();
 		if (ratio > 0)
 			MainCamera->setFOVy(Ogre::Degree(angle / ratio));
 	}
 }
 
-float Camera::GetFOVAngle()
+Real Camera::GetFOVAngle()
 {
 	if (!MainCamera)
 		return 0.0f;
@@ -956,7 +956,7 @@ void Camera::SetToDefaultFOV()
 	SetFOVAngle(FOV);
 }
 
-float Camera::GetHeight()
+Real Camera::GetHeight()
 {
 	//return camera's height
 
@@ -1039,7 +1039,7 @@ void Camera::Sync()
 	prev_orientation = orientation;
 }
 
-void Camera::SetMaxRenderDistance(float value)
+void Camera::SetMaxRenderDistance(Real value)
 {
 	//set distance of camera's far clipping plane - set to 0 for infinite
 
@@ -1050,7 +1050,7 @@ void Camera::SetMaxRenderDistance(float value)
 	FarClip = value;
 }
 
-float Camera::GetMaxRenderDistance()
+Real Camera::GetMaxRenderDistance()
 {
 	return FarClip;
 }
@@ -1412,7 +1412,7 @@ void Camera::CheckObjects()
 	CheckStairwell();
 }
 
-void Camera::Teleport(float X, float Y, float Z)
+void Camera::Teleport(Real X, Real Y, Real Z)
 {
 	//teleport/warp user to specified location
 
