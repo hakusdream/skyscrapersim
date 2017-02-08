@@ -142,12 +142,12 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 		Real offset;
 		if (Direction == "front")
 		{
-			offset = -0.01f;
+			offset = -0.01;
 			sbs->DrawWalls(true, false, false, false, false, false);
 		}
 		else
 		{
-			offset = 0.01f;
+			offset = 0.01;
 			sbs->DrawWalls(false, true, false, false, false, false);
 		}
 		if (Single == false)
@@ -166,7 +166,7 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 				else
 				{
 					Real height = (BackHeight / 7) * 2;
-					Real altitude = (BackHeight / 7) * 2.5f;
+					Real altitude = (BackHeight / 7) * 2.5;
 					if (floor < topfloor)
 						sbs->AddWallMain(this, DirectionalMeshUp, "DirectionalUp", UpTextureUnlit, 0, x1, offset, x2, offset, height, height, altitude, altitude, 1, 1, false);
 					if (floor > bottomfloor)
@@ -191,7 +191,7 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 				else
 				{
 					Real height = (BackHeight / 7) * 2;
-					Real altitude = (BackHeight / 7) * 2.5f;
+					Real altitude = (BackHeight / 7) * 2.5;
 					if (floor < topfloor)
 						sbs->AddWallMain(this, DirectionalMeshUp, "DirectionalUp", UpTextureUnlit, 0, x1, offset, x2, offset, height, height, altitude, altitude, 1, 1, false);
 					if (floor > bottomfloor)
@@ -214,13 +214,13 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 		Real offset;
 		if (Direction == "left")
 		{
-			offset = -0.01f;
+			offset = -0.01;
 			sbs->DrawWalls(true, false, false, false, false, false);
 		}
 		else
 		{
 			//right
-			offset = 0.01f;
+			offset = 0.01;
 			sbs->DrawWalls(false, true, false, false, false, false);
 		}
 		if (Single == false)
@@ -238,7 +238,7 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 				else
 				{
 					Real height = (BackHeight / 7) * 2;
-					Real altitude = (BackHeight / 7) * 2.5f;
+					Real altitude = (BackHeight / 7) * 2.5;
 					if (floor < topfloor)
 						sbs->AddWallMain(this, DirectionalMeshUp, "DirectionalUp", UpTextureUnlit, 0, offset, z1, offset, z2, height, height, altitude, altitude, 1, 1, false);
 					if (floor > bottomfloor)
@@ -262,7 +262,7 @@ DirectionalIndicator::DirectionalIndicator(Object *parent, int elevator, int car
 				else
 				{
 					Real height = (BackHeight / 7) * 2;
-					Real altitude = (BackHeight / 7) * 2.5f;
+					Real altitude = (BackHeight / 7) * 2.5;
 					if (floor < topfloor)
 						sbs->AddWallMain(this, DirectionalMeshUp, "DirectionalUp", UpTextureUnlit, 0, offset, z1, offset, z2, height, height, altitude, altitude, 1, 1, false);
 					if (floor > bottomfloor)

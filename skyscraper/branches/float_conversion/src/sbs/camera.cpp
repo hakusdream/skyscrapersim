@@ -129,7 +129,7 @@ Camera::Camera(Object *parent) : Object(parent)
 		width = cfg_body_width / 2;
 
 	Real height = (cfg_body_height + cfg_legs_height - 0.5f) - (width * 2);
-	Real step_height = cfg_legs_height - 0.5f;
+	Real step_height = cfg_legs_height - 0.5;
 
 	mCharacter = 0;
 	mShape = 0;
@@ -726,7 +726,7 @@ void Camera::Loop()
 		timing = sbs->GetAverageTime();
 	else
 		timing = sbs->GetElapsedTime();
-	Real delta = timing / 1000.0f;
+	Real delta = timing / 1000.0;
 
 	//reset collisions if needed
 	if (collision_reset == true && EnableBullet == true)
@@ -818,7 +818,7 @@ void Camera::Jump()
 		return;
 
 	//velocity.y = cfg_jumpspeed;
-	//desired_velocity.y = 0.0f;
+	//desired_velocity.y = 0.0;
 	if (mCharacter->getGravity() != 0 && EnableBullet == true)
 		mCharacter->jump();
 }
@@ -851,7 +851,7 @@ void Camera::InterpolateMovement(Real delta)
 {
 	//calculate movement and rotation acceleration
 
-	delta *= 1700.0f;
+	delta *= 1700.0;
 
 	for (size_t i = 0; i < 3; i++)
 	{
@@ -945,7 +945,7 @@ void Camera::SetFOVAngle(Real angle)
 Real Camera::GetFOVAngle()
 {
 	if (!MainCamera)
-		return 0.0f;
+		return 0.0;
 
 	return (float)(MainCamera->getFOVy().valueDegrees() * MainCamera->getAspectRatio());
 }

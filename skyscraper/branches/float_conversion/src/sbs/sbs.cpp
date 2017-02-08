@@ -120,7 +120,7 @@ SBS::SBS(Ogre::SceneManager* mSceneManager, FMOD::System *fmodsystem, int instan
 	DrawSidePOld = false;
 	DrawTopOld = false;
 	DrawBottomOld = false;
-	delta = 0.01f;
+	delta = 0.01;
 	wall1a = false;
 	wall1b = false;
 	wall2a = false;
@@ -490,11 +490,11 @@ void SBS::Loop()
 	else
 		timing = GetElapsedTime();
 
-	Real elapsed = Real(timing) / 1000.0f;
+	Real elapsed = Real(timing) / 1000.0;
 
 	//calculate start and running time
 	if (start_time == 0)
-		start_time = GetRunTime() / 1000.0f;
+		start_time = GetRunTime() / 1000.0;
 	running_time = (GetRunTime() / 1000.0f) - start_time;
 
 	//move camera or update character movement
@@ -522,7 +522,7 @@ void SBS::Loop()
 
 	//limit the elapsed value to prevent major slowdowns during debugging
 	if (elapsed > .5f)
-		elapsed = .5f;
+		elapsed = .5;
 
 	ProfileManager::Start_Profile("Simulator Loop");
 	while (elapsed >= delta)
@@ -1431,7 +1431,7 @@ void SBS::CreateSky()
 	SkyBox->no_collider = true;
 
 	//create a skybox that extends by default 30 miles (30 * 5280 ft) in each direction
-	Real skysize = GetConfigInt("Skyscraper.SBS.HorizonDistance", 30) * 5280.0f;
+	Real skysize = GetConfigInt("Skyscraper.SBS.HorizonDistance", 30) * 5280.0;
 	texturemanager->ResetTextureMapping(true);
 	Wall *wall = new Wall(SkyBox, SkyBox, true);
 
@@ -1745,13 +1745,13 @@ int SBS::GetDrawWallsCount()
 Real SBS::MetersToFeet(Real meters)
 {
 	//converts meters to feet
-	return meters * 3.2808399f;
+	return meters * 3.2808399;
 }
 
 Real SBS::FeetToMeters(Real feet)
 {
 	//converts feet to meters
-	return feet / 3.2808399f;
+	return feet / 3.2808399;
 }
 
 Wall* SBS::AddDoorwayWalls(MeshObject* mesh, const std::string &wallname, const std::string &texture, Real tw, Real th)

@@ -3173,7 +3173,7 @@ Real Elevator::GetDestinationAltitude(int floor)
 
 	ElevatorCar *car = GetCarForFloor(floor);
 	if (!car)
-		return 0.0f;
+		return 0.0;
 
 	return car->GetDestinationAltitude(floor) - GetCarOffset(car->Number);
 }
@@ -3184,7 +3184,7 @@ Real Elevator::GetDestinationOffset(int floor)
 
 	ElevatorCar *car = GetCarForFloor(floor);
 	if (!car)
-		return 0.0f;
+		return 0.0;
 
 	return car->GetDestinationOffset(floor);
 }
@@ -4218,7 +4218,7 @@ Real Elevator::GetCarOffset(int number)
 	//get vertical offset of specified car
 
 	if (!GetCar(GotoFloorCar))
-		return 0.0f;
+		return 0.0;
 
 	return GetCar(GotoFloorCar)->GetPosition().y - GetPosition().y;
 }

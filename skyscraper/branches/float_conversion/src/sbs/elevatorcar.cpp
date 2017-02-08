@@ -2878,7 +2878,7 @@ Real ElevatorCar::GetDestinationAltitude(int floor)
 	//returns the destination altitude of the specified floor, based on shaft door positioning
 
 	if (IsServicedFloor(floor) == false)
-		return 0.0f;
+		return 0.0;
 
 	Real result = 0;
 	bool found = false;
@@ -2909,12 +2909,12 @@ Real ElevatorCar::GetDestinationOffset(int floor)
 	//returns the offset distance from the floor's base altitude the elevator destination is
 
 	if (IsServicedFloor(floor) == false)
-		return 0.0f;
+		return 0.0;
 
 	if (sbs->GetFloor(floor))
 		return GetDestinationAltitude(floor) - sbs->GetFloor(floor)->GetBase();
 
-	return 0.0f;
+	return 0.0;
 }
 
 void ElevatorCar::SetFloor(int floor, bool move_parent)
@@ -2943,7 +2943,7 @@ bool ElevatorCar::IsLeveled()
 {
 	//return true if car is leveled at a serviced floor
 
-	Real tolerance = 0.005f;
+	Real tolerance = 0.005;
 
 	int floor = GetFloor();
 	if (IsServicedFloor(floor) == true)

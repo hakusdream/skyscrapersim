@@ -309,10 +309,10 @@ void TextureManager::RegisterTextureInfo(const std::string &name, const std::str
 	//register texture for multipliers information
 	//see TextureInfo structure for more information
 
-	if (widthmult == 0.0f)
-		widthmult = 1.0f;
-	if (heightmult == 0.0f)
-		heightmult = 1.0f;
+	if (widthmult == 0.0)
+		widthmult = 1.0;
+	if (heightmult == 0.0)
+		heightmult = 1.0;
 
 	TextureInfo info;
 	info.name = TrimStringCopy(name);

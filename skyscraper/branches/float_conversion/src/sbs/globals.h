@@ -59,7 +59,7 @@ typedef Ogre::Real Real;
 
 namespace SBS {
 
-const Real pi = 3.14159265f;
+const Real pi = 3.14159265;
 
 SBSIMPEXP bool IsEven(int Number);
 SBSIMPEXP bool IsNumeric(char character);

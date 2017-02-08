@@ -752,7 +752,7 @@ ElevatorDoor::DoorWrapper* ElevatorDoor::AddDoors(const std::string &lefttexture
 	//if direction is false, doors are on the left/right side; otherwise front/back
 	Real x1, x2, x3, x4;
 	Real z1, z2, z3, z4;
-	Real spacing = 0.01f; //spacing between doors
+	Real spacing = 0.01; //spacing between doors
 
 	//set up coordinates
 	if (direction == false)

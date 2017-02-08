@@ -289,7 +289,7 @@ Real SceneNode::GetScale()
 
 	if (node)
 		return node->getScale().x;
-	return 0.0f;
+	return 0.0;
 }
 
 void SceneNode::SetScale(Real scale)

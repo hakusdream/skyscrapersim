@@ -184,26 +184,26 @@ Control* ButtonPanel::AddControl(const std::string &sound, int row, int column, 
 		//half the width), plus total spacing to the left of it, plus total button spaces
 		//to the left of it, plus half of the extra width multiplier
 		position.x = (-Width / 2) + (SpacingX * column) + (ButtonWidth * (column - 1)) - ((ButtonWidth * (bwidth - 1)) / 2);
-		position.z = -0.01f;
+		position.z = -0.01;
 		position.x += hoffset * ButtonWidth;
 	}
 	if (Direction == "back")
 	{
 		//back
 		position.x = (Width / 2) - (SpacingX * column) - (ButtonWidth * (column - 1)) + ((ButtonWidth * (bwidth - 1)) / 2);
-		position.z = 0.01f;
+		position.z = 0.01;
 		position.x -= hoffset * ButtonWidth;
 	}
 	if (Direction == "left")
 	{
-		position.x = -0.01f;
+		position.x = -0.01;
 		position.z = (Width / 2) - (SpacingX * column) - (ButtonWidth * (column - 1)) + ((ButtonWidth * (bwidth - 1)) / 2);
 		position.z -= hoffset * ButtonWidth;
 	}
 	if (Direction == "right")
 	{
 		//right
-		position.x = 0.01f;
+		position.x = 0.01;
 		position.z = (-Width / 2) + (SpacingX * column) + (ButtonWidth * (column - 1)) - ((ButtonWidth * (bwidth - 1)) / 2);
 		position.z += hoffset * ButtonWidth;
 	}
