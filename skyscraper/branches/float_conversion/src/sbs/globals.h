@@ -55,9 +55,10 @@
 	#define SBSIMPEXP_DATA(type)
 #endif
 
+typedef Ogre::Real Real;
+
 namespace SBS {
 
-typedef Ogre::Real Real;
 const Real pi = 3.14159265f;
 
 SBSIMPEXP bool IsEven(int Number);
