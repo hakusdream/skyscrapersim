@@ -129,8 +129,8 @@ bool Skyscraper::OnInit(void)
 	console = 0;
 	new_location = false;
 	new_time = false;
-	latitude = 0.0f;
-	longitude = 0.0f;
+	latitude = 0.0;
+	longitude = 0.0;
 	datetime = 0.0;
 	active_engine = 0;
 	ConcurrentLoads = false;

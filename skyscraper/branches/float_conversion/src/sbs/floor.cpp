@@ -707,7 +707,7 @@ Door* Floor::AddDoor(const std::string &open_sound, const std::string &close_sou
 		z2 = CenterZ;
 	}
 
-	Real base = 0.0f;
+	Real base = 0.0;
 	if (external == false)
 		base = GetBase(true);
 
