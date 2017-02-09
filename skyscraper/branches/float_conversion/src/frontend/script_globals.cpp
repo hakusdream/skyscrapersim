@@ -211,7 +211,7 @@ int ScriptProcessor::GlobalsSection::Run(std::string &LineData)
 		if (!IsNumeric(value, rotation))
 			return ScriptError("Invalid rotation");
 
-		Simcore->Rotate(0.0f, rotation, 0.0f);
+		Simcore->Rotate(0.0, rotation, 0.0);
 		return sNextLine;
 	}
 	if (linecheck.substr(0, 6) == "bounds")

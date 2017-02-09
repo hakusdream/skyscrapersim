@@ -1420,7 +1420,7 @@ void MeshObject::CreateCollider()
 				Ogre::Vector3 b = Submeshes[i].MeshGeometry[tri.b].vertex;
 				Ogre::Vector3 c = Submeshes[i].MeshGeometry[tri.c].vertex;
 
-				if (scale != 1.0f)
+				if (scale != 1.0)
 				{
 					a *= scale;
 					b *= scale;

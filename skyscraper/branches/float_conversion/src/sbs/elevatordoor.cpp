@@ -72,7 +72,7 @@ ElevatorDoor::ElevatorDoor(int number, ElevatorCar* car) : Object(car)
 	this->car = car;
 	elev = car->GetElevator();
 	OpenDoor = 0;
-	OpenSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.OpenSpeed", 0.3f);
+	OpenSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.OpenSpeed", 0.3);
 	WhichDoors = 0;
 	ShaftDoorFloor = 0;
 	DoorTimer = sbs->GetConfigInt("Skyscraper.SBS.Elevator.Door.Timer", 5000);
@@ -90,8 +90,8 @@ ElevatorDoor::ElevatorDoor(int number, ElevatorCar* car) : Object(car)
 	ShaftDoorThickness = 0;
 	ShaftDoorOrigin = 0;
 	nudge_enabled = false;
-	ManualSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.ManualSpeed", 0.2f);
-	SlowSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.SlowSpeed", 0.5f);
+	ManualSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.ManualSpeed", 0.2);
+	SlowSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.SlowSpeed", 0.5);
 	QuickClose = sbs->GetConfigInt("Skyscraper.SBS.Elevator.Door.QuickClose", 3000);
 	NudgeTimer = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.Door.NudgeTimer", 30);
 	nudgesound_loaded = false;
@@ -779,10 +779,10 @@ ElevatorDoor::DoorWrapper* ElevatorDoor::AddDoors(const std::string &lefttexture
 	}
 
 	//create left door
-	AddDoorComponent("Left", lefttexture, lefttexture, thickness, "Left", OpenSpeed, OpenSpeed * 0.75f, x1, z1, x2, z2, height, 0, tw, th, tw, th);
+	AddDoorComponent("Left", lefttexture, lefttexture, thickness, "Left", OpenSpeed, OpenSpeed * 0.75, x1, z1, x2, z2, height, 0, tw, th, tw, th);
 
 	//create right door
-	AddDoorComponent("Right", righttexture, righttexture, thickness, "Right", OpenSpeed, OpenSpeed * 0.75f, x3, z3, x4, z4, height, 0, tw, th, tw, th);
+	AddDoorComponent("Right", righttexture, righttexture, thickness, "Right", OpenSpeed, OpenSpeed * 0.75, x3, z3, x4, z4, height, 0, tw, th, tw, th);
 
 	//finish doors
 	return FinishDoors();
@@ -1180,10 +1180,10 @@ ElevatorDoor::DoorWrapper* ElevatorDoor::AddShaftDoor(int floor, const std::stri
 	//create doors
 
 	//create left door
-	AddShaftDoorComponent(floor, "Left", lefttexture, lefttexture, thickness, "Left", OpenSpeed, OpenSpeed * 0.75f, x1, z1, x2, z2, Doors->Height, voffset, tw, th, tw, th);
+	AddShaftDoorComponent(floor, "Left", lefttexture, lefttexture, thickness, "Left", OpenSpeed, OpenSpeed * 0.75, x1, z1, x2, z2, Doors->Height, voffset, tw, th, tw, th);
 
 	//create right door
-	AddShaftDoorComponent(floor, "Right", righttexture, righttexture, thickness, "Right", OpenSpeed, OpenSpeed * 0.75f, x3, z3, x4, z4, Doors->Height, voffset, tw, th, tw, th);
+	AddShaftDoorComponent(floor, "Right", righttexture, righttexture, thickness, "Right", OpenSpeed, OpenSpeed * 0.75, x3, z3, x4, z4, Doors->Height, voffset, tw, th, tw, th);
 
 	//finish doors
 	DoorWrapper *wrapper = FinishShaftDoor(floor);

@@ -191,7 +191,7 @@ SBS::SBS(Ogre::SceneManager* mSceneManager, FMOD::System *fmodsystem, int instan
 	Move(position);
 
 	//rotate engine
-	Rotate(0.0f, rotation, 0.0f);
+	Rotate(0.0, rotation, 0.0);
 
 	//create main engine area trigger
 	SetBounds(area_min, area_max);
@@ -495,7 +495,7 @@ void SBS::Loop()
 	//calculate start and running time
 	if (start_time == 0)
 		start_time = GetRunTime() / 1000.0;
-	running_time = (GetRunTime() / 1000.0f) - start_time;
+	running_time = (GetRunTime() / 1000.0) - start_time;
 
 	//move camera or update character movement
 	camera->MoveCharacter();
@@ -521,7 +521,7 @@ void SBS::Loop()
 	elapsed += remaining_delta;
 
 	//limit the elapsed value to prevent major slowdowns during debugging
-	if (elapsed > .5f)
+	if (elapsed > .5)
 		elapsed = .5;
 
 	ProfileManager::Start_Profile("Simulator Loop");
@@ -562,7 +562,7 @@ void SBS::CalculateFrameRate()
 	fps_frame_count++;
 	if (fps_tottime > 500)
 	{
-		FPS = (Real (fps_frame_count) * 1000.0f) / Real (fps_tottime);
+		FPS = (Real (fps_frame_count) * 1000.) / Real (fps_tottime);
 		fps_frame_count = 0;
 		fps_tottime = 0;
 	}
@@ -584,7 +584,7 @@ bool SBS::AddWallMain(Wall* wallobject, const std::string &name, const std::stri
 	if (x1 == x2 && z1 == z2)
 		return ReportError("Invalid coordinates for wall '" + name + "'");
 
-	if (height_in1 == 0.0f && height_in2 == 0.0f)
+	if (height_in1 == 0.0f && height_in2 == 0.0)
 		return ReportError("No wall height specified for wall '" + name + "'");
 
 	//determine axis of wall
@@ -735,7 +735,7 @@ bool SBS::AddWallMain(Wall* wallobject, const std::string &name, const std::stri
 		wallobject->AddQuad(NewName, texture2, v6, v5, v8, v7, tw2, th2, autosize); //back wall
 	}
 
-	if (thickness != 0.0f)
+	if (thickness != 0.0)
 	{
 		if (DrawSideN == true)
 		{
@@ -988,7 +988,7 @@ bool SBS::AddFloorMain(Wall* wallobject, const std::string &name, const std::str
 		wallobject->AddQuad(NewName, texture2, v8, v7, v6, v5, tw2, th2, autosize); //top wall
 	}
 
-	if (thickness != 0.0f)
+	if (thickness != 0.0)
 	{
 		if (DrawSideN == true)
 		{

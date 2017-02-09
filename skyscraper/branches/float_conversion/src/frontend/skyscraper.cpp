@@ -989,7 +989,7 @@ void Skyscraper::DrawImage(const std::string &filename, buttondata *button, Real
 
 			//rescale texture
 			state->setTextureScale((Ogre::Real)w2 / (Ogre::Real)w_orig, (Ogre::Real)h2 / (Ogre::Real)h_orig);
-			state->setTextureScroll(-(Ogre::Real(w2 - w_orig) / (Ogre::Real)w2) / 2.0f, -(Ogre::Real(h2 - h_orig) / (Ogre::Real)h2) / 2.0);
+			state->setTextureScroll(-(Ogre::Real(w2 - w_orig) / (Ogre::Real)w2) / 2.0, -(Ogre::Real(h2 - h_orig) / (Ogre::Real)h2) / 2.0);
 
 			if (tex->hasAlpha() == true && button)
 			{

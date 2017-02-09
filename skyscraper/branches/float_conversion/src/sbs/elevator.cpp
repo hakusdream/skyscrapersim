@@ -132,8 +132,8 @@ Elevator::Elevator(Object *parent, int number) : Object(parent)
 	ParkingFloor = 0;
 	ParkingDelay = 0;
 	Leveling = false;
-	LevelingSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.LevelingSpeed", 0.2f);
-	LevelingOffset = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.LevelingOffset", 0.5f);
+	LevelingSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.LevelingSpeed", 0.2);
+	LevelingOffset = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.LevelingOffset", 0.5);
 	LevelingOpen = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.LevelingOpen", 0);
 	tmpDecelJerk = 0;
 	FinishedMove = false;
@@ -145,15 +145,15 @@ Elevator::Elevator(Object *parent, int number) : Object(parent)
 	Running = sbs->GetConfigBool("Skyscraper.SBS.Elevator.Run", true);
 	Notified = false;
 	Parking = false;
-	DepartureDelay = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.DepartureDelay", 0.0f);
-	ArrivalDelay = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.ArrivalDelay", 0.0f);
+	DepartureDelay = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.DepartureDelay", 0.0);
+	ArrivalDelay = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.ArrivalDelay", 0.0);
 	WaitForTimer = false;
 	SoundsQueued = false;
 	HeightSet = false;
 	elevposition = 0;
 	ManualUp = false;
 	ManualDown = false;
-	InspectionSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.InspectionSpeed", 0.6f);
+	InspectionSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.InspectionSpeed", 0.6);
 	LimitQueue = sbs->GetConfigBool("Skyscraper.SBS.Elevator.LimitQueue", false);
 	UpQueueEmpty = false;
 	DownQueueEmpty = false;
@@ -171,7 +171,7 @@ Elevator::Elevator(Object *parent, int number) : Object(parent)
 	GoActiveFloor = 0;
 	FloorHold = sbs->GetConfigBool("Skyscraper.SBS.Elevator.FloorHold", false);
 	GoPending = false;
-	EmergencyStopSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.EmergencyStopSpeed", 3.0f);
+	EmergencyStopSpeed = sbs->GetConfigFloat("Skyscraper.SBS.Elevator.EmergencyStopSpeed", 3.0);
 	MotorEmergencyStopSound = sbs->GetConfigString("Skyscraper.SBS.Elevator.MotorEmergencyStopSound", "");
 	AutoAdjustSound = sbs->GetConfigBool("Skyscraper.SBS.Elevator.AutoAdjustSound", false);
 	SkipFloorSound = false;
@@ -1500,7 +1500,7 @@ void Elevator::MoveElevatorToFloor()
 					ElevatorRate += (ElevatorSpeed * InspectionSpeed) * ((TempDeceleration * JerkRate) * sbs->delta);
 			}
 
-			if (ElevatorRate != 0.0f)
+			if (ElevatorRate != 0.0)
 			{
 				PlayStoppingSounds();
 

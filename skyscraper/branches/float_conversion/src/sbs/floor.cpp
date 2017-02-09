@@ -897,7 +897,7 @@ void Floor::AddFillerWalls(const std::string &texture, Real thickness, Real Cent
 	Real x1 = 0, x2 = 0, z1 = 0, z2 = 0, depth1 = 0, depth2 = 0;
 
 	//exit if no height given
-	if (height == 0.0f)
+	if (height == 0.0)
 	{
 		ReportError("AddFillerWalls: no wall height specified");
 		return;

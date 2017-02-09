@@ -321,10 +321,10 @@ Ogre::Vector3 Wall::GetWallExtents(Real altitude, bool get_max)
 			return Ogre::Vector3(0, 0, 0);
 
 		//get upper
-		sbs->SplitWithPlane(1, original, tmp1, tmp2, tmpaltitude - 0.001f);
+		sbs->SplitWithPlane(1, original, tmp1, tmp2, tmpaltitude - 0.001);
 
 		//get lower part of upper
-		sbs->SplitWithPlane(1, tmp2, original, tmp1, tmpaltitude + 0.001f);
+		sbs->SplitWithPlane(1, tmp2, original, tmp1, tmpaltitude + 0.001);
 
 		Ogre::Vector3 result;
 		if (get_max == false)
